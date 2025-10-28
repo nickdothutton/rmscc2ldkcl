@@ -1,0 +1,53 @@
+# PowerShell
+*.ps1xml
+*.psc1
+*.pssc
+
+# Log files
+*.log
+logs/
+
+# Sensitive data
+*.key
+*.secret
+config.json
+secrets/
+.env
+
+# API Keys and credentials
+api-keys.txt
+credentials.txt
+
+# Output and temp files
+output/
+temp/
+*.tmp
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+bin/
+obj/
+dist/
+build/
+
+# Test results
+test-results/
+coverage/
+
+# Backup files
+*.bak
+*.backup
+
+# Module cache
+PSGetModuleInfo.xml
