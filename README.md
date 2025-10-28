@@ -38,6 +38,27 @@ RMS-CloudConnected to LDK-CL Entitlement Migration Tool for Thales Sentinel EMS
    $PSVersionTable.PSVersion
    ```
 
+3. **PowerShell Execution Policy** (Windows only):
+
+   PowerShell may block unsigned scripts by default. You have several options:
+
+   **Option A - Bypass for single execution** (Recommended for testing):
+   ```powershell
+   powershell.exe -ExecutionPolicy Bypass -File .\rmscc2ldkcl.ps1 -EmsUrl "..." -Username "..." ...
+   ```
+
+   **Option B - Set for current user** (Permanent change):
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+
+   **Option C - Use the bash wrapper** (Automatically handles execution policy):
+   ```bash
+   ./run-test.sh
+   ```
+
+   Note: The provided `run-test.sh` bash wrapper automatically uses `-ExecutionPolicy Bypass`.
+
 ## Usage
 
 The script can be run in two different execution modes:
