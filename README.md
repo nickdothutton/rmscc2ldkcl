@@ -139,9 +139,10 @@ The tool automatically creates detailed log files with timestamps for each execu
 1. **Parameter Collection**: Collects required parameters (interactive or batch mode)
 2. **Authentication**: Establishes basic auth connection to Sentinel EMS
 3. **Initialization**: Validates connection to EMS and credentials
-4. **Mode Selection**: Executes either staging or complete mode operations
-5. **Processing**: Performs migration operations based on batch code and customer ID
-6. **Reporting**: Generates detailed logs and summary of operations
+4. **Entitlements Retrieval**: Calls Search Entitlements API (GET /ems/api/v5/entitlements) with customerId to retrieve all entitlements for the customer
+5. **Mode Selection**: Executes either staging or complete mode operations
+6. **Processing**: Performs migration operations using the retrieved entitlements data
+7. **Reporting**: Generates detailed logs and summary of operations
 
 ## Error Handling
 
@@ -180,9 +181,9 @@ All errors are logged with detailed information to facilitate troubleshooting.
 
 This tool uses the following Sentinel EMS REST API endpoints:
 
-- `GET /api/health` - Health check
-- `GET /api/entitlements` - Retrieve entitlements
-- `POST /api/entitlements` - Create new entitlements
+- `GET /api/health` - Health check (optional, for connectivity validation)
+- `GET /ems/api/v5/entitlements?customerId={customerId}` - Search/retrieve entitlements for a customer
+- Additional endpoints will be used for staging and complete mode operations (to be defined)
 
 Refer to the Thales Sentinel EMS API documentation for complete endpoint details.
 

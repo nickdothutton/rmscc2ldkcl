@@ -81,6 +81,7 @@ $script:BatchCode = $null
 $script:CustomerId = $null
 $script:Mode = $null
 $script:ApiHeaders = $null
+$script:Entitlements = $null
 
 #region Interactive Mode Functions
 
@@ -300,66 +301,52 @@ function Invoke-EmsApiRequest {
 function Get-EmsEntitlements {
     <#
     .SYNOPSIS
-        Retrieves entitlements for a specific product
+        Retrieves entitlements for a specific customer from Sentinel EMS
+    .DESCRIPTION
+        Calls the Search Entitlements REST API endpoint (GET /ems/api/v5/entitlements)
+        with the customerId as a query parameter
     #>
     param(
         [Parameter(Mandatory = $true)]
-        [string]$ProductId
+        [string]$CustomerId
     )
 
-    Write-Log "Fetching entitlements for product: $ProductId" -Level Info
+    Write-Log "Fetching entitlements for customer: $CustomerId" -Level Info
 
     try {
-        $endpoint = "/api/entitlements?productId=$ProductId"
+        $endpoint = "/ems/api/v5/entitlements?customerId=$CustomerId"
         $entitlements = Invoke-EmsApiRequest -Endpoint $endpoint -Method GET
 
-        Write-Log "Retrieved $($entitlements.Count) entitlements" -Level Success
+        if ($entitlements) {
+            $count = 0
+            if ($entitlements -is [array]) {
+                $count = $entitlements.Count
+            }
+            elseif ($entitlements.items) {
+                $count = $entitlements.items.Count
+            }
+            elseif ($entitlements.entitlements) {
+                $count = $entitlements.entitlements.Count
+            }
+            else {
+                $count = 1
+            }
+
+            Write-Log "Retrieved $count entitlement(s)" -Level Success
+        }
+        else {
+            Write-Log "No entitlements found for customer: $CustomerId" -Level Warning
+        }
+
         return $entitlements
     }
     catch {
         Write-Log "Failed to retrieve entitlements: $($_.Exception.Message)" -Level Error
-        return $null
-    }
-}
-
-function Copy-Entitlement {
-    <#
-    .SYNOPSIS
-        Copies an entitlement from source to target product
-    #>
-    param(
-        [Parameter(Mandatory = $true)]
-        [object]$SourceEntitlement,
-
-        [Parameter(Mandatory = $true)]
-        [string]$TargetProductId
-    )
-
-    Write-Log "Migrating entitlement: $($SourceEntitlement.id)" -Level Info
-
-    if ($DryRun) {
-        Write-Log "[DRY RUN] Would migrate entitlement $($SourceEntitlement.id) to product $TargetProductId" -Level Warning
-        return $true
-    }
-
-    try {
-        # Create new entitlement object for target product
-        $newEntitlement = @{
-            productId   = $TargetProductId
-            customerId  = $SourceEntitlement.customerId
-            features    = $SourceEntitlement.features
-            # Add other relevant properties
+        if ($_.Exception.Response) {
+            $statusCode = $_.Exception.Response.StatusCode.value__
+            Write-Log "HTTP Status Code: $statusCode" -Level Error
         }
-
-        $endpoint = "/api/entitlements"
-        $result = Invoke-EmsApiRequest -Endpoint $endpoint -Method POST -Body $newEntitlement
-
-        Write-Log "Successfully migrated entitlement: $($SourceEntitlement.id)" -Level Success
-        return $true
-    }
-    catch {
-        Write-Log "Failed to migrate entitlement $($SourceEntitlement.id): $($_.Exception.Message)" -Level Error
-        return $false
+        return $null
     }
 }
 
@@ -379,6 +366,7 @@ function Initialize-Migration {
     Write-Log "Batch Code  : $($script:BatchCode)" -Level Info
     Write-Log "Customer ID : $($script:CustomerId)" -Level Info
     Write-Log "Mode        : $($script:Mode)" -Level Info
+    Write-Log ""
 
     # Test API connectivity
     Write-Log "Testing EMS connectivity..." -Level Info
@@ -390,9 +378,22 @@ function Initialize-Migration {
     }
     catch {
         Write-Log "Failed to connect to EMS: $($_.Exception.Message)" -Level Error
+        Write-Log "Note: If /api/health endpoint doesn't exist, this is not critical" -Level Warning
+        # Continue execution - the health endpoint may not exist in all EMS versions
+    }
+
+    Write-Log ""
+
+    # Retrieve entitlements for the customer
+    Write-Log "Retrieving entitlements for customer: $($script:CustomerId)" -Level Info
+    $script:Entitlements = Get-EmsEntitlements -CustomerId $script:CustomerId
+
+    if ($null -eq $script:Entitlements) {
+        Write-Log "Failed to retrieve entitlements. Cannot proceed." -Level Error
         return $false
     }
 
+    Write-Log ""
     return $true
 }
 
@@ -406,9 +407,17 @@ function Start-StagingMode {
     Write-Log "Batch Code: $($script:BatchCode)" -Level Info
     Write-Log "Customer ID: $($script:CustomerId)" -Level Info
 
-    # TODO: Implement staging mode logic here
-    # This is a placeholder for staging mode functionality
-    Write-Log "Staging mode functionality to be implemented" -Level Warning
+    # Entitlements are available in $script:Entitlements
+    if ($script:Entitlements) {
+        Write-Log "Processing entitlements data..." -Level Info
+        # TODO: Implement staging mode logic here
+        # The entitlements data is available in $script:Entitlements
+        Write-Log "Staging mode functionality to be implemented" -Level Warning
+    }
+    else {
+        Write-Log "No entitlements data available" -Level Error
+        return
+    }
 
     Write-Log "=== STAGING Mode Complete ===" -Level Info
 }
@@ -423,9 +432,17 @@ function Start-CompleteMode {
     Write-Log "Batch Code: $($script:BatchCode)" -Level Info
     Write-Log "Customer ID: $($script:CustomerId)" -Level Info
 
-    # TODO: Implement complete mode logic here
-    # This is a placeholder for complete mode functionality
-    Write-Log "Complete mode functionality to be implemented" -Level Warning
+    # Entitlements are available in $script:Entitlements
+    if ($script:Entitlements) {
+        Write-Log "Processing entitlements data..." -Level Info
+        # TODO: Implement complete mode logic here
+        # The entitlements data is available in $script:Entitlements
+        Write-Log "Complete mode functionality to be implemented" -Level Warning
+    }
+    else {
+        Write-Log "No entitlements data available" -Level Error
+        return
+    }
 
     Write-Log "=== COMPLETE Mode Complete ===" -Level Info
 }
