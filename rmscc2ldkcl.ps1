@@ -73,13 +73,8 @@ param(
     [string]$LogFile = "rmscc2ldkcl_$(Get-Date -Format 'yyyyMMdd_HHmmss').log"
 )
 
-# Script-level variables
-$script:EmsUrl = $null
-$script:Username = $null
-$script:Password = $null
-$script:BatchCode = $null
-$script:CustomerId = $null
-$script:Mode = $null
+# Script-level variables (initialized in Initialize-Parameters function)
+# Note: Do NOT initialize string variables here as it interferes with parameter values
 $script:ApiHeaders = $null
 $script:Entitlements = $null
 
@@ -151,14 +146,14 @@ function Get-InteractiveInput {
         $modeChoice = Read-Host "Enter choice (1 or 2)"
 
         switch ($modeChoice) {
-            "1" { $script:Mode = "staging" }
-            "2" { $script:Mode = "complete" }
+            "1" { $script:MigrationMode = "staging" }
+            "2" { $script:MigrationMode = "complete" }
             default {
                 Write-Host "Invalid choice. Please enter 1 or 2." -ForegroundColor Red
-                $script:Mode = $null
+                $script:MigrationMode = ""
             }
         }
-    } while ([string]::IsNullOrWhiteSpace($script:Mode))
+    } while ([string]::IsNullOrWhiteSpace($script:MigrationMode))
 
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Cyan
@@ -168,7 +163,7 @@ function Get-InteractiveInput {
     Write-Host "  Password    : ********" -ForegroundColor White
     Write-Host "  Batch Code  : $($script:BatchCode)" -ForegroundColor White
     Write-Host "  Customer ID : $($script:CustomerId)" -ForegroundColor White
-    Write-Host "  Mode        : $($script:Mode)" -ForegroundColor White
+    Write-Host "  Mode        : $($script:MigrationMode)" -ForegroundColor White
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host ""
 
@@ -209,7 +204,7 @@ function Initialize-Parameters {
         $script:Password = $Password
         $script:BatchCode = $BatchCode
         $script:CustomerId = $CustomerId
-        $script:Mode = $Mode
+        $script:MigrationMode = $Mode
     }
 
     # Create Basic Auth header
@@ -365,8 +360,7 @@ function Initialize-Migration {
     Write-Log "Username    : $($script:Username)" -Level Info
     Write-Log "Batch Code  : $($script:BatchCode)" -Level Info
     Write-Log "Customer ID : $($script:CustomerId)" -Level Info
-    Write-Log "Mode        : $($script:Mode)" -Level Info
-    Write-Log ""
+    Write-Log "Mode        : $($script:MigrationMode)" -Level Info
 
     # Test API connectivity
     Write-Log "Testing EMS connectivity..." -Level Info
@@ -382,8 +376,6 @@ function Initialize-Migration {
         # Continue execution - the health endpoint may not exist in all EMS versions
     }
 
-    Write-Log ""
-
     # Retrieve entitlements for the customer
     Write-Log "Retrieving entitlements for customer: $($script:CustomerId)" -Level Info
     $script:Entitlements = Get-EmsEntitlements -CustomerId $script:CustomerId
@@ -393,7 +385,6 @@ function Initialize-Migration {
         return $false
     }
 
-    Write-Log ""
     return $true
 }
 
@@ -453,7 +444,7 @@ function Start-Migration {
         Executes the entitlement migration process based on selected mode
     #>
 
-    switch ($script:Mode) {
+    switch ($script:MigrationMode) {
         'staging' {
             Start-StagingMode
         }
@@ -461,7 +452,7 @@ function Start-Migration {
             Start-CompleteMode
         }
         default {
-            Write-Log "Invalid mode: $($script:Mode)" -Level Error
+            Write-Log "Invalid mode: $($script:MigrationMode)" -Level Error
             return
         }
     }
