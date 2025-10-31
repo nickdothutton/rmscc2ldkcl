@@ -1,0 +1,49 @@
+{
+  "customers": {
+    "count": 1,
+    "customer": [
+      {
+        "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "name": "TestCustomer",
+        "identifier": "CIdentifier",
+        "externalId": "CExternalId",
+        "refId": "refId",
+        "crmId": "crmId",
+        "description": "Customer Description",
+        "timeZoneId": "America/New_York",
+        "state": "ENABLE",
+        "creationDate": "2019-12-19 06:43",
+        "lastModifiedDate": "2019-12-19 06:43",
+        "marketGroup": {
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "name": "TestMarketgroup"
+        },
+        "contacts": {
+          "contact": [
+            {
+              "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+              "emailId": "TestUser@example.com",
+              "externalId": "UserExternalId"
+            }
+          ]
+        },
+        "customAttributes": {
+          "customAttribute": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ]
+        },
+        "fingerprints": {
+          "fingerprint": [
+            {
+              "friendlyName": "",
+              "id": ""
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+URL:
+{YOUR_URL}/ems/api/v5/customers?id={id}&name={name}&identifier={identifier}&externalId={externalId}&refId={refId}&crmId={crmId}&description={description}&marketGroupId={marketGroupId}&marketGroupName={marketGroupName}&state={state}&contactEmailId={contactEmailId}&contactId={contactId}&contactExternalId={contactExternalId}&pageStartIndex={pageStartIndex}&pageSize={pageSize}&searchPattern={searchPattern}&sortByAsc={sortByAsc}&sortByDesc={sortByDesc}&creationDateFrom={creationDateFrom}&creationDateTo={creationDateTo}&raw={raw}&embed={embed}
+
+METHOD:
+GET
+
+AUTHORIZATION:
+Basic Auth
+#credentials = Encode {YOUR_USERNAME}:{YOUR_PASSWORD} to base64
+
+HEADERS:
+Authorization = Basic {credentials}
+Accept = application/json

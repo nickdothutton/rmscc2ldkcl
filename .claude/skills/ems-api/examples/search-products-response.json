@@ -1,0 +1,144 @@
+{
+  "products": {
+    "count": 1,
+    "product": [
+      {
+        "namespace": {
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "name": "TestNamespace"
+        },
+        "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "identifier": "TestIdentifier",
+        "externalId": "TestExternalId",
+        "limitType": 0,
+        "maxLimit": 1,
+        "extnLDK": {
+          "lockingType": "HL_or_SL_AdminMode_or_SL_UserMode",
+          "rehostState": "ENABLE",
+          "isNotLockedToDevice": "false",
+          "upgradeToDriverless": "true",
+          "vclock": "true",
+          "cloneProtectionPhysical": "SID",
+          "cloneProtectionVirtual": "SID",
+          "prdMemoryReferences": {
+            "memoryFile": [
+              {
+                "fileName": "memoryFile",
+                "text": "memoryContent",
+                "fileId": 1,
+                "fileType": "READ_WRITE",
+                "fileSize": "100",
+                "segmentName": "memorySegment",
+                "size": "100",
+                "offset": "0",
+                "applyMemory": "ADD",
+                "allowTextOverwrite": "true"
+              }
+            ]
+          }
+        },
+        "createdBy": "TestUserName",
+        "creationDate": "2019-12-19 06:43",
+        "lastModifiedBy": "TestUserName",
+        "lastModifiedDate": "2019-12-19 06:43",
+        "nameVersion": {
+          "name": "TestProduct",
+          "version": "1.0"
+        },
+        "parentProduct": {
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "identifier": "TestIdentifier",
+          "externalId": "TestExternalId",
+          "nameVersion": {
+            "name": "TestProduct",
+            "version": "1.0"
+          }
+        },
+        "deployed": false,
+        "description": "Product description",
+        "state": "ENABLE",
+        "refId1": "refId1",
+        "refId2": "refId2",
+        "isProvisioning": false,
+        "isAutoActivation": false,
+        "isLDKEnforcement": "true",
+        "family": {
+          "familyId": "",
+          "familyName": "Default"
+        },
+        "activationMethod": "SAOT",
+        "productType": "DEFAULT",
+        "fixedQuantity": "",
+        "productFeatures": {
+          "productFeature": [
+            {
+              "feature": {
+                "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "externalId": "",
+                "nameVersion": {
+                  "name": "TestFeature",
+                  "version": "1.0"
+                }
+              },
+              "SAOT": false,
+              "state": "Optional_DefaultOn",
+              "defaultLicenseModel": {
+                "enforcement": {
+                  "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                  "name": "Sentinel RMS",
+                  "version": "9.5"
+                },
+                "licenseModel": {
+                  "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                  "name": "TestLicenseModel"
+                },
+                "attributes": {
+                  "attribute": [
+                    {
+                      "name": "",
+                      "value": ""
+                    }
+                  ]
+                },
+                "isFixed": true
+              },
+              "componentMultiplier": ""
+            }
+          ]
+        },
+        "productDownloads": {
+          "productDownload": [
+            {
+              "download": {
+                "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "identifier": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "nameVersion": {
+                  "name": "TestFeature",
+                  "version": "1.0"
+                },
+                "externalId": "downloadExternalId"
+              }
+            }
+          ]
+        },
+        "customAttributes": {
+          "customAttribute": [
+            {
+              "name": "",
+              "value": ""
+            }
+          ]
+        },
+        "productAttributes": {
+          "productAttribute": [
+            {
+              "name": "",
+              "value": "",
+              "encodeToBase64": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

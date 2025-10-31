@@ -1,0 +1,1198 @@
+openapi: 3.0.1
+tags:
+  - name: Entitlement
+    icon: far fa-file-alt
+    heading: ---
+    groups:
+      - name: Entitlement
+        order:
+          - Add Entitlement
+          - Search Entitlements
+          - Get Entitlement
+          - Replace Entitlement
+          - Update Entitlement
+          - Delete Entitlement
+          - '---'
+          - Enable Entitlement
+          - Disable Entitlement
+          - Close Entitlement
+          - '---'
+          - Associate User
+          - Remove Associated User
+          - '---'
+          - Associate Customer
+          - Remove Associated Customer
+          - '---'
+          - Associate Partners
+          - Update Associated Partners
+          - Remove Associated Partner
+          - '---'
+          - Add Product Key
+          - Get Product Key
+          - Update Product Key
+          - '---'
+          - Enable Product Key
+          - Disable Product Key
+          - Close Product Key
+          - '---'
+          - Associate Named User
+          - Search Associated Named Users
+          - Update Associated Named User
+          - Remove Associated Named User
+          - '---'
+          - Split or Transfer
+          - '---'
+          - Bulk Entitlement Upload
+      - name: Batch Entitlement
+        order:
+          - Add Batch Entitlement
+          - Get Batch Entitlement
+      - name: Fingerprint
+        labels:
+         - RMS
+         - SCL
+        labelTooltip: Applies only to Sentinel RMS and SCL Add-on enforcement.
+        order:
+          - Add Fingerprint
+          - Search Fingerprints
+          - Get Fingerprint
+          - Update Fingerprint
+          - Replace Fingerprint
+          - Delete Fingerprint
+          - '---'
+          - Update Entitlement Association
+          - Search in Entitlement
+          - Remove from Entitlement
+          - '---'
+          - Update Product Key Association
+          - Search in Product Key
+          - Remove from Product Key
+          - '---'
+          - Update Variant Association
+          - Search in Variant
+          - Remove from Variant
+  - name: Activation
+    icon: fas fa-unlock-alt
+    groups:
+      - name: Activation
+        order:
+          - Add Activation
+          - Search Activations
+          - Get Activation
+          - Update Activation
+          - Renew Activation
+          - Rehost Activation
+          - '---'
+          - Get Activatee
+          - Replace Activatees
+          - Update Activatees
+          - '---'
+          - Mark as Revoked
+          - Mark as Bulk Revoked
+          - Custom Revocation
+          - Generate Permission Ticket
+          - Generate Permission Tickets
+          - Submit Revocation Proof
+          - Submit Revocation Proofs
+          - Confirm Revocation
+          - Reject Revocation
+      - name: License Grant
+        order:
+          - Search License Grants
+          - Get License Grant
+          - Update License Grant
+          - '---'
+          - Search Associated Access Grants
+          - Update Associated Access Grants
+          - Replace Associated Access Grants
+          - Delete Associated Access Grant
+      - name: License Session
+        labels:
+         - SCL
+        labelTooltip: Applies only to SCL Add-on.
+        order:
+          - Search License Sessions
+          - Delete License Session
+  - name: SaaS
+    displayName: Entitled Feature
+    icon: fas fa-solid fa-toggle-on
+    groups:
+      - name: Entitled Feature
+        order:
+          - Get Entitled Features
+  - name: Customer
+    icon: fas fa-users
+    heading: ---
+    groups:
+      - name: Customer
+        order:
+          - Add Customer
+          - Search Customers
+          - Get Customer
+          - Replace Customer
+          - Update Customer
+          - Delete Customer
+          - '---'
+          - Get Cloud Licensing Permissions
+          - Update Cloud Licensing Permissions
+          - '---'
+          - Replace Associated Users
+          - Update Associated Users
+          - Delete Associated User
+          - '---'
+          - Bulk Customer Upload
+          
+      - name: User Associations
+        order:
+          - Search Entitled Product Identifiers
+          - '---'
+          - Add Association
+          - Search Associations
+          - Get Association
+          - Replace Association
+          - Update Association
+          - Remove Association
+      - name: User
+        order:
+          - Add User
+          - Search Users
+          - Get User
+          - Replace User
+          - Update User
+          - Delete User
+          - '---'
+          - Register User
+          - Change Password
+          - Forgot Password
+          - Bulk User Upload
+          - '---'
+          - Search Registered Machinesㅤ
+          - Enable Registered Machine
+          - Disable Registered Machine          
+          - Synchronize Registered Machineㅤ
+          - Delete Registered Machineㅤ
+      - name: Machine Account
+        labels:
+         - LDK
+        labelTooltip: Applies only to Sentinel LDK enforcement.
+        order:
+          - Add Machine Account
+          - Search Machine Accounts
+          - Get Machine Account
+          - Replace Machine Account
+          - Update Machine Account
+          - Synchronize Machine Account
+          - Delete Machine Account          
+          - '---'
+          - Search Registered Machines
+          - Update Registered Machine
+          - Synchronize Registered Machine
+          - Delete Registered Machine   
+
+      - name: Registration Token
+#        displayName: Registration Token
+        labels:
+         - SCL
+        labelTooltip: Applies only to SCL Add-on.
+        order:
+          - Add Registration Token
+          - Search Registration Tokens
+          - Get Registration Token
+          - Replace Registration Token
+          - Update Registration Token
+          - Delete Registration Token
+      - name: Auth Token          
+        displayName: Auth Token
+        labels:
+         - SCL
+        labelTooltip: Applies only to SCL Add-on.
+        order:
+          - Add Auth Token
+          - Search Auth Tokens
+          - Get Auth Token
+          - Replace Auth Token
+          - Update Auth Token
+          - Delete Auth Token     
+  - name: Partner
+    displayName: Channel Partner
+    icon: far fa-handshake
+    groups:
+      - name: Channel Partner
+        order:
+          - Add Partner
+          - Search Partners
+          - Get Partner
+          - Replace Partner
+          - Update Partner
+          - Delete Partner
+          - '---'
+          - Add Partner User
+          - Search Partner Users
+          - Get Partner User
+          - Replace Partner User
+          - Update Partner User
+          - Delete Partner User  
+  - name: Catalog
+    heading: ---
+    icon: fas fa-tags
+    groups:
+      - name: Product
+        order:
+          - Add Product
+          - Search Products
+          - Get Product
+          - Replace Product
+          - Update Product
+          - Delete Product
+          - '---'
+          - Replace Associated Features
+          - Update Associated Features
+          - Delete Associated Feature
+          - '---'
+          - Bulk Product Upload
+      - name: Feature
+        order:
+          - Add Feature
+          - Search Features
+          - Get Feature
+          - Replace Feature
+          - Update Feature
+          - Delete Feature
+          - '---'
+          - Replace License Models
+          - Update License Models
+          - Delete License Models
+          - '---'
+          - Bulk Feature Upload
+      - name: Memory
+        labels:
+         - LDK
+        labelTooltip: Applies only to Sentinel LDK enforcement.
+        order:
+          - Add Memory
+          - Search Memory
+          - Get Memory
+          - Replace Memory
+          - Update Memory
+          - Delete Memory
+      - name: Custom Clone Protection Scheme
+        labels:
+         - LDK
+        labelTooltip: Applies only to Sentinel LDK enforcement.
+        order:
+          - Add Custom Scheme
+          - Search Custom Schemes
+          - Get Custom Scheme
+          - Replace Custom Scheme
+          - Update Custom Scheme
+          - Delete Custom Scheme
+      - name: License Model
+        displayName: License Model
+        order:
+          - Add License Model
+          - Search License Models
+          - Get License Model
+          - Replace License Model
+          - Update License Model
+          - Delete License Model
+      - name: Product Suite
+        labels:
+         - RMS+2
+        labelTooltip: Applies only to Sentinel RMS, SCL Add-on, and Third-party enforcement.
+        displayName: Product Suite
+        order:
+          - Add Product Suite
+          - Search Product Suites
+          - Get Product Suite
+          - Replace Product Suite
+          - Update Product Suite
+          - Delete Product Suite
+          - '---'
+          - Replace Associated Products
+          - Update Associated Products
+          - Delete Associated Product
+          - '---'
+          - Bulk Product Suite Upload
+      - name: Namespace
+        order:
+          - Add Namespace
+          - Search Namespaces
+          - Get Namespace
+          - Replace Namespace
+          - Update Namespace
+          - Delete Namespace
+      - name: Enforcement
+        order:
+          - Add Enforcement
+          - Search Enforcements
+          - Get Enforcement 
+          - Replace Enforcement
+          - Update Enforcement
+          - Delete Enforcement
+          - '---'
+          - Add Enforcement Group
+          - Get Associated Enforcement Group
+          - Replace Associated Enforcement Group
+          - Update Associated Enforcement Group
+          - Delete Associated Enforcement Group   
+  - name: Provisioning
+    icon: far fa-light fa-arrows-split-up-and-left fa-fw
+    groups:
+      - name: Requests
+        order:
+          - Search Provisioning Requests
+         # - Get Provisioning Request
+          - Update Provisioning Request Status
+      - name: Associations
+        order:
+          - Search Product Associations
+          - Get Product Association
+          - Replace Product Association
+          - Update Product Association
+          - Delete Product Association
+      - name: Methods
+        order:
+          - Add Provisioning Method
+          - Search Provisioning Methods
+          - Get Provisioning Method
+          - Replace Provisioning Method
+          - Update Provisioning Method
+          - Delete Provisioning Method 
+      - name: Plans
+        order:
+          - Add Provisioning Plan
+          - Search Provisioning Plans
+          - Get Provisioning Plan
+          - Replace Provisioning Plan
+          - Update Provisioning Plan
+          - Delete Provisioning Plan
+  - name: Download
+    icon: fas fa-download
+    groups:
+      - name: Download
+        order:
+          - Get STS Token
+          - Add Download
+          - Search Downloads
+          - Get Download
+          - Update Download
+          - Replace Download
+          - Delete Download
+          - '---'
+          - Update Associated Downloads
+          - Replace Associated Download
+          - Delete Associated Download
+          - '---'
+          - Update Associated Products
+          - Replace Associated Products
+          - Delete Associated Product
+          - '---'
+          - Update Associated Customers
+          - Replace Associated Customer
+          - Delete Associated Customer
+          - '---'
+          - Bulk Download Upload
+  - name: ActivatedProducts
+    displayName: Activated Product
+    heading: Sentinel LDK
+    icon: fa-regular fa-box-check
+    groups:
+      - name: Activated Product
+        order:
+          - Search Activated Products
+  - name: Keys
+    displayName: Sentinel Key
+    icon: fas fa-key
+    groups:
+      - name: Sentinel Key
+        order:
+          - Check In C2V
+          - Search Sentinel Keys
+          - Get Latest V2CP
+          - Decode C2V
+          - Clear Clone
+          - Reset Virtual Clock
+          - Enable Sentinel Key
+          - Synchronize Sentinel Key State
+          - Get License Updates
+
+  - name: LDKLicense
+    displayName: License Sessions
+    icon: fas fa-user-clock
+    groups:
+      - name: License  Sessions​​
+        order:
+          - Search Sessions
+          - Terminate Session
+
+  - name: CloudLM
+    icon: fa-regular fa-cloud-check
+    displayName: Cloud LM
+    heading: SCL Add-on
+    groups:
+      - name: License Sessions
+        displayName: License Sessions
+        order:
+          - Login
+          - Refresh
+          - Logout
+          - '---'
+          - Search Sessions
+          - Terminate Sessions by User/Host
+          - Terminate Session by Session ID
+          #- AboutMe
+      - name: Features
+        displayName: Feature
+        order:
+          - Search Features
+          - Search Licenses
+          - Search Clients
+      - name: User Accounts
+        displayName: User Accounts
+        order:
+          - Add/Replace User Accounts
+          - Update User Accounts
+          - Search User Accounts
+          - Delete User Account
+  - name: Device
+    icon: far fa-desktop
+    heading: Sentinel Fit
+    groups:
+      - name: Device
+        order:
+          - Add Device
+          - Search Devices
+          - Get Device
+          - Replace Device
+          - Update Device
+          - Claim Device
+          - '---'
+          - Replace Associated Customer
+          - Update Associated Customer
+          - Remove Associated Customer
+          - '---'
+          - Replace Associated User
+          - Update Associated User
+          - Remove Associated User
+#          - '---'
+#          - Replace Associated Enforcement
+#          - Update Associated Enforcement
+#          - Remove Associated Enforcement
+  - name: Report
+    heading: ---
+    icon: fas fa-chart-bar
+    groups:
+      - name: Report
+        order:
+          - Search Reports
+          - Generate Report 
+      - name: Custom Report
+        displayName: Custom Report
+        icon: fa fa-file
+        order:
+          - Add Custom Report
+          - Search Custom Reports
+          - Get Custom Report
+          - Replace Custom Report
+          - Update Custom Report
+          - Delete Custom Report
+      - name: Data Export
+        order:
+          - Search Data Export Reports
+          - Get Data Export Report
+          - Generate Data Export Report          
+          - Copy Data Export Report
+          - Configure Data Export Report
+          - Delete Data Export Report
+          - '---'
+          - Search Report Jobs
+          - Get Report Job
+          - Reset Report Job
+          - Delete Report Job                      
+  - name: Transaction
+    icon: fa fa-history
+    displayName: Transaction
+    groups:
+      - name: Transaction
+        displayName: Transaction History
+        order:
+          - Search Transactions
+          - Get Transaction Change Log
+      - name: Job Queue
+        displayName: Job Queue
+        icon: fa fa-file-archive-o
+        order:
+          - Search Job Queue
+          - Get Job Queue
+  - name: User
+    icon: far fa-address-card
+    displayName: Identities & Access
+    groups:
+      - name: Vendor User
+        order:
+          - Add User
+          - Search Users
+          - Get User
+          - Replace User
+          - Update User
+          - Delete User
+          - '---'
+          - Replace Associated Roles
+          - Update Associated Roles
+          - Delete Associated Role
+          - '---'
+          - Replace Associated Market Groups
+          - Update Associated Market Groups
+          - Remove Associated Market Group
+          - '---'
+          - Change Password
+          - Forgot Password
+      - name: Role
+        order:
+          - Add Role
+          - Search Roles
+          - Get Role
+          - Replace Role
+          - Update Role
+          - Delete Role
+          - '---'
+          - Replace Associated Users
+          - Update Associated Users
+          - Delete Associated User
+      - name: Market Group
+        order:
+          - Add Market Group
+          - Search Market Groups
+          - Get Market Group
+          - Replace Market Group
+          - Update Market Group
+          - Delete Market Group
+          - '---'
+          - Replace Associated Namespaces
+          - Update Associated Namespaces
+          - Remove Associated Namespace
+          - '---'
+          - Replace Users
+          - Update Users
+          - Remove User
+
+      - name: Sentinel IDP          
+        displayName: Sentinel IDP
+        order:
+          - Get Identity Provider (IDP) Details
+      - name: OAuth Client          
+        displayName: OAuth Client
+        order:
+          - Add Client
+          - Search Clients
+          - Get Client
+          - Get Client Secret
+          - Replace Client
+          - Update Client
+          - Delete Client
+
+  - name: Configuration
+    icon: fas fa-cog
+    groups:
+      - name: Administration Console
+        order:
+          - Search Application Properties
+          - Get Application Property
+          - Replace Application Properties
+          - Bulk Update Application Properties
+          - Test SMTP
+      - name: Custom Attribute
+        displayName: Custom Attribute
+        icon: fa fa-tags
+        order:
+          - Add Custom Attribute
+          - Search Custom Attributes
+          - Get Custom Attribute
+          - Update Custom Attribute
+          - Delete Custom Attribute
+      - name: List Attribute
+        displayName: List Attribute
+        icon: fa fa-list-alt
+        order:
+          - Search List Attributes
+          - Get List Attribute
+          - Replace Associated Options
+          - Update Associated Options
+          - Delete Associated Option
+      - name: Custom Entity
+        order:
+          - Add Custom Entity
+          - Search Custom Entities
+          - Get Custom Entity
+          - Update Custom Entity
+          - Replace Custom Entity
+          - Delete Custom Entity
+          - '---'
+          - Add Entity Attribute
+          - Search Entity Attribute
+          - Get Entity Attribute
+          - Update Entity Attribute
+          - Replace Entity Attribute
+          - Delete Entity Attribute
+          - '---'
+          - Add Custom Entity Record
+          - Search Custom Entity Records
+          - Get Custom Entity Record
+          - Update Custom Entity Record
+          - Replace Custom Entity Record
+          - Delete Custom Entity Record
+      - name: Webhook
+        icon: fa fa-file-code-o
+        order:
+          - Add Webhook
+          - Search Webhooks
+          - Get Webhook
+          - Replace Webhook
+          - Update Webhook
+          - Delete Webhook   
+          - '---'           
+          - Add Authentication Profile
+          - Search Authentication Profiles
+          - Get Authentication Profile
+          - Replace Authentication Profile
+          - Update Authentication Profile
+          - Delete Authentication Profile
+          - '---'  
+          - Search Events        
+          - Get Event 
+          - Retry Events                 
+      - name: Notification
+        displayName: Notifications
+        icon: fa fa-bell
+        order:
+          - Search Notifications
+          - Get Notification
+          - Update Notification
+          - Run Notification
+      - name: Cloud Licensing Permissions
+        labels:
+         - LDK
+        labelTooltip: Applies only to Sentinel LDK enforcement.
+        order:
+          - Get Cloud Licensing Permissions
+          - Update Cloud Licensing Permissions
+      - name: Email Templates
+        icon: fa fa-file-code-o
+        order:
+          - Search Email Templates
+          - Get Email Template
+          - Replace Email Template
+          - Update Email Template
+          - '---'
+          - Get Locale
+          - Replace Locales
+          - Delete Locale             
+
+info:
+  version: 5.3
+  title: EMS-WSReference
+#host: 120.0.0.1
+#schemes: [http,https]
+paths:
+  /ems/api/v5/entitledFeatures:
+    $ref: './paths/entitledFlag.yaml#/entitledFlags'
+  /ems/api/v5/namespaces:
+    $ref: './paths/namespace.yaml#/namespaces'
+  /ems/api/v5/namespaces/{id}:
+    $ref: './paths/namespace.yaml#/namespaces_id'
+  /ems/api/v5/enforcements:
+    $ref: './paths/enforcement.yaml#/enforcements'
+  /ems/api/v5/enforcements/{enforcementId}:
+    $ref: './paths/enforcement.yaml#/enforcements_id'
+  /ems/api/v5/enforcements/{enforcementId}/enforcementGroups:
+    $ref: './paths/enforcement.yaml#/enforcements_enforcementId_enforcementGroup'    
+  /ems/api/v5/enforcements/{enforcementId}/enforcementGroups/{groupId}:
+    $ref: './paths/enforcement.yaml#/enforcements_enforcementId_enforcementGroups'
+  /ems/api/v5/enforcements/{enforcementId}/licenseModels:
+    $ref: './paths/licenseModel.yaml#/enforcements_enforcementId_licenseModels'
+  /ems/api/v5/enforcements/{enforcementId}/licenseModels/{licenseModelId}:
+    $ref: './paths/licenseModel.yaml#/enforcements_enforcementId_licenseModels_licenseModelId'
+  /ems/api/v5/features:
+    $ref: './paths/feature.yaml#/features'
+  /ems/api/v5/features/{featureId}:
+    $ref: './paths/feature.yaml#/features_featureId'
+  /ems/api/v5/features/{featureId}/featureLicenseModels:
+    $ref: './paths/feature.yaml#/features_featureId_featureLicenseModels'
+  /ems/api/v5/features/bulk:
+    $ref: './paths/feature.yaml#/features_bulk'
+  /ems/api/v5/products:
+    $ref: './paths/product.yaml#/products'
+  /ems/api/v5/products/{productId}:
+    $ref: './paths/product.yaml#/products_productId'
+  /ems/api/v5/products/{productId}/productFeatures:
+    $ref: './paths/product.yaml#/products_productId_productFeatures'
+  /ems/api/v5/products/bulk:
+    $ref: './paths/product.yaml#/products_bulk'
+  /ems/api/v5/productSuites:
+    $ref: './paths/productSuite.yaml#/productSuites'
+  /ems/api/v5/productSuites/{suiteId}:
+    $ref: './paths/productSuite.yaml#/productSuites_suiteId'
+  /ems/api/v5/productSuites/{suiteId}/products:
+    $ref: './paths/productSuite.yaml#/productSuites_suiteId_products'
+  /ems/api/v5/productSuites/bulk:
+    $ref: './paths/productSuite.yaml#/productSuites_bulk'
+  /ems/api/v5/contacts:
+    $ref: './paths/contact.yaml#/contacts'
+  /ems/api/v5/contacts/{contactId}:
+    $ref: './paths/contact.yaml#/contacts_contactId'
+  /ems/api/v5/registerContact:
+    $ref: './paths/contact.yaml#/contacts_register'
+  /ems/api/v5/contacts/anonymous/resetPassword:
+    $ref: './paths/contact.yaml#/contacts_contactId_resetPassword'
+  /ems/api/v5/contacts/{contactId}/changePassword:
+    $ref: './paths/contact.yaml#/contacts_contactId_changePassword'
+  /ems/api/v5/contacts/bulk:
+    $ref: './paths/contact.yaml#/contacts_bulk'
+  /ems/api/v5/customers:
+    $ref: './paths/customer.yaml#/customers'
+  /ems/api/v5/customers/{customerId}:
+    $ref: './paths/customer.yaml#/customers_customerId'
+  /ems/api/v5/customers/{customerId}/contacts:
+    $ref: './paths/customer.yaml#/customers_customerId_contacts'
+  /ems/api/v5/customers/bulk:
+    $ref: './paths/customer.yaml#/customers_bulk'
+  /ems/api/v5/customers/{customerId}/licenseGrants/{licenseGrantId}:
+    $ref: './paths/licenseGrant.yaml#/license_grant'    
+  /ems/api/v5/customers/{customerId}/licenseGrants:
+    $ref: './paths/licenseGrant.yaml#/license_grants'
+  /ems/api/v5/partners:
+    $ref: './paths/partner.yaml#/partners'
+  /ems/api/v5/partners/{partnerId}:
+    $ref: './paths/partner.yaml#/partners_partnerId'
+  /ems/api/v5/partners/{partnerId}/partnerUsers:
+    $ref: './paths/partner.yaml#/partners_partnerId_partnerUsers'
+  /ems/api/v5/partners/{partnerId}/partnerUsers/{userId}:
+    $ref: './paths/partner.yaml#/partners_partnerId_partnerUsers_userId'
+  /ems/api/v5/entitlements:
+    $ref: './paths/entitlement.yaml#/entitlements'
+  /ems/api/v5/entitlements/{entitlementId}:
+    $ref: './paths/entitlement.yaml#/entitlements_entitlementId'
+  /ems/api/v5/entitlements/{entitlementId}/enable:
+    $ref: './paths/entitlement.yaml#/entitlements_enable'
+  /ems/api/v5/entitlements/{entitlementId}/disable:
+    $ref: './paths/entitlement.yaml#/entitlements_disable'
+  /ems/api/v5/entitlements/{entitlementId}/close:
+    $ref: './paths/entitlement.yaml#/entitlements_close'
+  /ems/api/v5/entitlements/bulk:
+    $ref: './paths/entitlement.yaml#/entitlements_bulk'
+  /ems/api/v5/entitlements/{entitlementId}/contact:
+    $ref: './paths/entitlement.yaml#/entitlements_entitlementId_contact'
+  /ems/api/v5/entitlements/{entitlementId}/customer:
+    $ref: './paths/entitlement.yaml#/entitlements_entitlementId_customer'
+  /ems/api/v5/entitlements/{entitlementId}/entitlementPartners:
+    $ref: './paths/entitlement.yaml#/entitlements_entitlementId_entitlementPartners'
+  /ems/api/v5/entitlements/{entitlementId}/productKeys:
+    $ref: './paths/entitlement.yaml#/entitlements_entitlementId_productKeys'
+  /ems/api/v5/productKeys/{productKeyId}:
+    $ref: './paths/entitlement.yaml#/productKeys_pkId'
+  /ems/api/v5/productKeys/{productKeyId}/enable:
+    $ref: './paths/entitlement.yaml#/productKeys_pkId_enable'
+  /ems/api/v5/productKeys/{productKeyId}/disable:
+    $ref: './paths/entitlement.yaml#/productKeys_pkId_disable'
+  /ems/api/v5/productKeys/{productKeyId}/close:
+    $ref: './paths/entitlement.yaml#/productKeys_pkId_close'
+  /ems/api/v5/productKeys/{pkId}/namedUsers:
+    $ref: './paths/entitlement.yaml#/productKeys_pkId_namedUsers'
+  /ems/api/v5/entitlements/{entitlementId}/splitTransfer:
+    $ref: './paths/entitlement.yaml#/entitlements_entitlementId_splitTransfer'
+  /ems/api/v5/entitlements/{entitlementId}/batchCommit:
+    $ref: './paths/batchEntitlement.yaml#/entitlements_entitlementId_batchCommit'
+  /ems/api/v5/entitlements/queue/{id}:
+    $ref: './paths/batchEntitlement.yaml#/entitlements_queue_id'
+  /ems/api/v5/activations/bulkActivate:
+    $ref: './paths/activation.yaml#/activations_bulkActivate'
+  /ems/api/v5/activations:
+    $ref: './paths/activation.yaml#/activations'
+  /ems/api/v5/activations/bulkRehost:
+    $ref: './paths/activation.yaml#/activations_bulkRehost'
+  /ems/api/v5/activations/{activationId}:
+    $ref: './paths/activation.yaml#/activations_activationId'
+  /ems/api/v5/activations/{activationId}/renew:
+    $ref: './paths/activation.yaml#/activations_activationId_renew'
+  /ems/api/v5/activations/{activationId}/activatees:
+    $ref: './paths/activation.yaml#/activations_activationId_activatees'
+  /ems/api/v5/activations/{activationId}/markRevoke:
+    $ref: './paths/activation.yaml#/activations_activationId_markRevoke'
+  /ems/api/v5/activations/bulkMarkRevoke:
+    $ref: './paths/activation.yaml#/activations_bulkMarkRevoke'
+  /ems/api/v5/activations/{activationId}/customRevoke:
+    $ref: './paths/activation.yaml#/activations_activationId_customRevoke'
+#  /ems/api/v5/activations/{activationId}/generatePermissionTicket:
+#    $ref: './paths/activation.yaml#/activations_activationId_generatePermissionTicket'
+  /ems/api/v5/activations/{activationId}/generatePermissionTickets:
+    $ref: './paths/activation.yaml#/activations_activationId_generatePermissionTickets'
+#  /ems/api/v5/activations/{activationId}/submitRevokeProof:
+#    $ref: './paths/activation.yaml#/activations_activationId_submitRevokeProof'
+  /ems/api/v5/activations/{activationId}/submitRevokeProofs:
+    $ref: './paths/activation.yaml#/activations_activationId_submitRevokeProofs'
+  /ems/api/v5/activations/{activationId}/confirmRevoke:
+    $ref: './paths/activation.yaml#/activations_activationId_confirmRevoke'
+  /ems/api/v5/activations/{activationId}/rejectRevocation:
+    $ref: './paths/activation.yaml#/activations_activationId_rejectRevocation'
+  /ems/api/v5/customers/{customerId}/fingerprints:
+    $ref: './paths/fingerprint.yaml#/customers_customerId_fingerprints'
+  /ems/api/v5/customers/{customerId}/fingerprints/{fingerprintId}:
+    $ref: './paths/fingerprint.yaml#/customers_customerId_fingerprints_fingerprintId'
+  /ems/api/v5/entitlements/{entitlementId}/entitlementFingerprints/{fingerprintId}:
+    $ref: './paths/fingerprint.yaml#/entitlements_entitlementId_entitlementFingerprints_fingerprintId'
+  /ems/api/v5/productKeys/{pkId}/productKeyFingerprints/{fingerprintId}:
+    $ref: './paths/fingerprint.yaml#/productKeys_pkId_productKeyFingerprints_fingerprintId'
+  /ems/api/v5/productKeys/{pkId}/productKeyFingerprints:
+    $ref: './paths/fingerprint.yaml#/productKeys_pkId_productKeyFingerprints'
+  /ems/api/v5/entitlements/{entitlementId}/entitlementFingerprints:
+    $ref: './paths/fingerprint.yaml#/entitlements_entitlementId_entitlementFingerprints'
+  /ems/api/v5/productKeys/{pkId}/productVariants/{productVariant}/productVariantFingerprints/{fingerprintId}:
+    $ref: './paths/fingerprint.yaml#/productKeys_pkId_productVariants_productVariant_productVariantFingerprints_fingerprintId'
+  /ems/api/v5/productKeys/{pkId}/productVariants/{productVariant}/productVariantFingerprints:
+    $ref: './paths/fingerprint.yaml#/productKeys_pkId_productVariants_productVariant_productVariantFingerprints'
+  /ems/api/v5/users:
+    $ref: './paths/user.yaml#/users'
+  /ems/api/v5/users/{userId}:
+    $ref: './paths/user.yaml#/users_userId'
+  /ems/api/v5/users/{userId}/roles:
+    $ref: './paths/user.yaml#/users_userId_roles'
+  /ems/api/v5/users/{userId}/marketGroups:
+    $ref: './paths/user.yaml#/users_userId_marketGroups'
+  /ems/api/v5/users/{userId}/changePassword:
+    $ref: './paths/user.yaml#/users_userId_changePassword'
+  /ems/api/v5/users/anonymous/resetPassword:
+    $ref: './paths/user.yaml#/users_userId_anonymous_resetPassword'
+  /ems/api/v5/roles:
+    $ref: './paths/roles.yaml#/roles'
+  /ems/api/v5/roles/{roleId}:
+    $ref: './paths/roles.yaml#/roles_roleId'
+  /ems/api/v5/roles/{roleId}/users:
+    $ref: './paths/roles.yaml#/roles_roleId_users'
+  /ems/api/v5/marketGroups:
+    $ref: './paths/marketGroup.yaml#/marketGroups'
+  /ems/api/v5/marketGroups/{marketGroupId}:
+    $ref: './paths/marketGroup.yaml#/marketGroup_marketGroupId'
+  /ems/api/v5/marketGroups/{marketGroupId}/namespaces:
+    $ref: './paths/marketGroup.yaml#/marketGroup_marketGroupId_namespaces'
+  /ems/api/v5/marketGroups/{marketGroupId}/users:
+    $ref: './paths/marketGroup.yaml#/marketGroup_marketGroupId_users'
+  /ems/api/v5/downloads:
+    $ref: './paths/download.yaml#/downloads'
+  /ems/api/v5/downloads/{downloadId}:
+    $ref: './paths/download.yaml#/downloads_downloadId'
+  /ems/api/v5/downloads/bulk:
+    $ref: './paths/download.yaml#/downloads_bulk'
+  /ems/api/v5/stsToken:
+    $ref: './paths/download.yaml#/stsToken'
+  /ems/api/v5/downloads/{downloadId}/associatedDownloads:
+    $ref: './paths/download.yaml#/downloads_downloadId_associatedDownloads'
+  /ems/api/v5/downloads/{downloadId}/associatedProducts:
+    $ref: './paths/download.yaml#/downloads_downloadId_associatedProducts'
+  /ems/api/v5/downloads/{downloadId}/associatedCustomers:
+    $ref: './paths/download.yaml#/downloads_downloadId_associatedCustomers'
+  /ems/api/v5/customAttributes:
+    $ref: './paths/customAttribute.yaml#/customAttributes'
+  /ems/api/v5/customAttributes/{id}:
+    $ref: './paths/customAttribute.yaml#/customAttributes_id'
+  /ems/api/v5/listAttributes:
+    $ref: './paths/listAttribute.yaml#/listAttributes'
+  /ems/api/v5/listAttributes/{id}:
+    $ref: './paths/listAttribute.yaml#/listAttributes_id'
+  /ems/api/v5/listAttributes/{listId}/options:
+    $ref: './paths/listAttribute.yaml#/listAttributes_listId_options'
+  /ems/api/v5/reports:
+    $ref: './paths/report.yaml#/reports'
+  /ems/api/v5/reports/{reportId}:
+    $ref: './paths/report.yaml#/reports_reportId'
+# reportTemplates
+  /ems/api/v5/reportTemplates:
+    $ref: './paths/reportTemplate.yaml#/reportTemplates'
+  /ems/api/v5/reportTemplates/{reportId}:
+    $ref: './paths/reportTemplate.yaml#/reportTemplates_reportId'
+  /ems/api/v5/reportTemplates/{reportId}/generateReport:
+    $ref: './paths/reportTemplate.yaml#/reportTemplates_generate_reportId'
+  /ems/api/v5/reportTemplates/{reportId}/copy:
+    $ref: './paths/reportTemplate.yaml#/reportTemplates_copy'
+  /ems/api/v5/reportTemplates/{reportId}/configure:
+    $ref: './paths/reportTemplate.yaml#/reportTemplates_reportId_configure'
+  /ems/api/v5/reportJobs:
+    $ref: './paths/reportJob.yaml#/reportJobs'
+  /ems/api/v5/reportJobs/{reportJobId}:
+    $ref: './paths/reportJob.yaml#/reportJob'
+  /ems/api/v5/reportJobs/{reportJobId}/reset:
+    $ref: './paths/reportJob.yaml#/reportJob_reset' 
+#
+  /ems/api/v5/batchJobs/{jobId}:
+    $ref: './paths/jobQueue.yaml#/batchJobs_jobId'
+  /ems/api/v5/batchJobs:
+    $ref: './paths/jobQueue.yaml#/batchJobs'
+  /ems/api/v5/customers/{customerId}/licenseSessions:
+    $ref: './paths/licenseSession.yaml#/customers_customerId_licenseSessions'
+  /ems/api/v5/customers/{customerId}/licenseSessions/{sessionId}:
+    $ref: './paths/licenseSession.yaml#/customers_customerId_licenseSessions_sessionId'
+  /ems/api/v5/devices:
+      $ref: './paths/device.yaml#/devices'
+  /ems/api/v5/devices/{deviceId}:
+      $ref: './paths/device.yaml#/devices_deviceId'
+  /ems/api/v5/devices/{deviceId}/claim:
+      $ref: './paths/device.yaml#/devices_deviceId_claim'
+  /ems/api/v5/devices/{deviceId}/deviceCustomers:
+      $ref: './paths/device.yaml#/devices_deviceId_deviceCustomers'
+  /ems/api/v5/devices/{deviceId}/deviceContacts:
+      $ref: './paths/device.yaml#/devices_deviceId_deviceContacts'
+#  /ems/api/v5/devices/{deviceId}/deviceEnforcements:
+#      $ref: './paths/device.yaml#/devices_deviceId_deviceEnforcements'
+  /ems/api/v5/notifications:
+    $ref: './paths/notification.yaml#/notifications'
+  /ems/api/v5/notifications/{notificationId}:
+    $ref: './paths/notification.yaml#/notifications_notificationId'
+  /ems/api/v5/notifications/{notificationId}/runNotification:
+    $ref: './paths/notification.yaml#/notifications_notificationId_runNotification'
+  /ems/api/v5/transactions:
+    $ref: './paths/transactionHistory.yaml#/transactions'
+  /ems/api/v5/transactions/{transactionId}/changeLog:
+    $ref: './paths/transactionHistory.yaml#/transactions_transactionId_changeLog'
+  /ems/api/v5/applicationProperties:
+    $ref: './paths/applicationProperties.yaml#/applicationProperties'
+  /ems/api/v5/applicationProperties/{id}:
+    $ref: './paths/applicationProperties.yaml#/applicationProperties_id'
+  /ems/api/v5/applicationProperties/bulk:
+    $ref: './paths/applicationProperties.yaml#/applicationProperties_bulk'
+  /ems/api/v5/applicationProperties/testSMTP:
+    $ref: './paths/applicationProperties.yaml#/applicationProperties_testSMTP'
+  /ldk/api/v5/clConfiguration:
+    $ref: './paths/cloudLicensingConfiguration.yaml#/cloudLicensingConfiguration'
+  /ldk/api/v5/clConfiguration/customerConfiguration/{customerId}:
+    $ref: './paths/customerConfiguration.yaml#/customerConfiguration'
+  /ems/api/v5/customReports:
+    $ref: './paths/customReport.yaml#/customReports'
+  /ems/api/v5/customReports/{customReportId}:
+    $ref: './paths/customReport.yaml#/customReports_customReportId'
+    
+  /ems/api/v5/webhooks:
+    $ref: './paths/webhook.yaml#/webhook' 
+  /ems/api/v5/webhooks/{id}:
+    $ref: './paths/webhook.yaml#/webhook_identifier'
+  /ems/api/v5/authProfiles:
+    $ref: './paths/authprofile.yaml#/authProfile'
+  /ems/api/v5/authProfiles/{id}:
+    $ref: './paths/authprofile.yaml#/webhook_profileId'
+  /ems/api/v5/webhooks/events:
+    $ref: './paths/failedEvent.yaml#/event'
+  /ems/api/v5/webhooks/events/{id}:
+    $ref: './paths/failedEvent.yaml#/failedEvent_Id' 
+  /ems/api/v5/webhooks/events/retry:
+    $ref: './paths/failedEvent.yaml#/failedEvent_retry'    
+    
+  /ems/api/v5/templates:
+    $ref: './paths/self-service.yaml#/templates'
+  /ems/api/v5/templates/{templateId}:
+    $ref: './paths/self-service.yaml#/templates_templateId'
+  /ems/api/v5/templates/{templateId}/locales/{localeCode}:
+    $ref: './paths/self-service.yaml#/templates_templateId_locales_localeCode'
+  /ems/api/v5/customEntities:
+    $ref: './paths/customEntities.yaml#/customEntities'
+  /ems/api/v5/customEntities/{id}:
+    $ref: './paths/customEntities.yaml#/customEntities_id'
+  /ems/api/v5/customEntities/{entityId}/attributes:
+    $ref: './paths/customEntities.yaml#/customEntities_entityId_attributes'
+  /ems/api/v5/customEntities/{entityId}/attributes/{attrId}:
+    $ref: './paths/customEntities.yaml#/customEntities_entityId_attributes_attrId'
+  /ems/api/v5/customEntities/{entityId}/records:
+    $ref: './paths/customEntities.yaml#/customEntities_entityId_records'
+  /ems/api/v5/customEntities/{entityId}/records/{recordId}:
+    $ref: './paths/customEntities.yaml#/customEntities_entityId_records_recordId'
+  /ems/api/v5/memory:
+    $ref: './paths/memory.yaml#/memorys'
+  /ems/api/v5/memory/{memoryId}:
+    $ref: './paths/memory.yaml#/memorys_memoryId'
+  /ems/api/v5/keys:
+    $ref: './paths/key.yaml#/keys'
+  /ems/api/v5/keys/{keyId}/clearClone:
+    $ref: './paths/key.yaml#/keys_keyId'
+  /ems/api/v5/keys/{keyId}/resetVirtualClock:
+    $ref: './paths/key.yaml#/keys_resetVirtualClock'    
+  /ems/api/v5/keys/decodeC2V:
+    $ref: './paths/key.yaml#/keys_decodeC2V'        
+  /ems/api/v5/keys/checkin:
+    $ref: './paths/key.yaml#/keys_checkin'   
+  /ems/api/v5/keys/{keyId}/latestV2CP:
+    $ref: './paths/key.yaml#/keys_latestV2CP'
+  /ems/api/v5/keys/{keyId}/enable:
+    $ref: './paths/key.yaml#/keys_enableKey'
+  /ems/api/v5/keys/{keyId}/syncState:
+    $ref: './paths/key.yaml#/keys_syncState'
+  /ems/api/v5/keys/fetchUpdates:
+    $ref: './paths/key.yaml#/keys_fetchUpdates'
+  /ldk/api/v5/activatedProducts:
+    $ref: './paths/activatedProduct.yaml#/activatedProducts_search'
+  /ems/api/v5/provisioningPlans:
+    $ref: './paths/plan.yaml#/provisioningPlans'
+  /ems/api/v5/provisioningPlans/{planId}:
+    $ref: './paths/plan.yaml#/plans_planId'
+  /ems/api/v5/provisioningMethods:
+    $ref: './paths/method.yaml#/provisioningMethods' 
+  /ems/api/v5/provisioningMethods/{methodId}:
+    $ref: './paths/method.yaml#/methods_methodId'
+  /ems/api/v5/customers/{customerId}/productConsumerAuthorizations/{productConsumerAuthorizationId}/consumers:
+    $ref: './paths/productUserAssociation.yaml#/productConsumerAuthorizationsDeassociations'
+  /ems/api/v5/provisioningAssociations:
+    $ref: './paths/productAssociation.yaml#/provisioningAssociations' 
+  /ems/api/v5/provisioningAssociations/{productId}:
+    $ref: './paths/productAssociation.yaml#/products_productId_association'
+  /ems/api/v5/customers/{customerId}/entitledProductIdentifiers:
+    $ref: './paths/productUserAssociation.yaml#/entitledProductIdentifiers'
+  /ems/api/v5/customers/{customerId}/productConsumerAuthorizations:
+    $ref: './paths/productUserAssociation.yaml#/productConsumerAuthorizations'
+  /ems/api/v5/customers/{customerId}/productConsumerAuthorizations/{productConsumerAuthorizationId}:
+    $ref: './paths/productUserAssociation.yaml#/productConsumerAuthorizations_authorizationId'
+  /ems/api/v5/provisioningRequests:
+    $ref: './paths/provisioning.yaml#/provisioningRequests'
+#  /ems/api/v5/provisioningRequests/{provisioningId}:
+ #   $ref: './paths/provisioning.yaml#/provisionings_provisioningId' 
+  /ldk/api/v5/cloneProtectionSchemes:
+    $ref: './paths/cloneProtectionSchems.yaml#/cloneProtectionSchemes'
+  /ldk/api/v5/cloneProtectionSchemes/{cloneProtectionSchemeId}:
+    $ref: './paths/cloneProtectionSchems.yaml#/cloneProtectionSchemes_cloneProtectionSchemeId'
+  /ems/api/v5/provisioningRequests/{provisioningId}/statusUpdate:
+    $ref: './paths/provisioning.yaml#/provisionings_provisioningId_update' 
+  /ldk/api/v5/accounts:
+    $ref: './paths/account.yaml#/accounts'
+  /ldk/api/v5/accounts/{accountId}:
+    $ref: './paths/account.yaml#/accounts_accountId'
+  /ldk/api/v5/accounts/{accountId}/syncState:
+    $ref: './paths/account.yaml#/accounts_accountId_syncState'
+  /ldk/api/v5/accounts/{accountId}/registeredMachines:
+    $ref: './paths/registeredMachine.yaml#/registeredMachines'
+  /ldk/api/v5/accounts/{accountId}/registeredMachines/{registeredMachineId}:
+    $ref: './paths/registeredMachine.yaml#/registeredMachines_registeredMachineId'
+  /ldk/api/v5/accounts/{accountId}/registeredMachines/{registeredMachineId}/syncState:
+    $ref: './paths/registeredMachine.yaml#/registeredMachines_registeredMachineId_syncState'  
+
+  /ldk/api/v5/registeredMachines:
+    $ref: './paths/registeredMachine.yaml#/userRegisteredMachines'
+  /ldk/api/v5/registeredMachines/{registeredMachineId}:
+    $ref: './paths/registeredMachine.yaml#/userRegisteredMachines_registeredMachineId'
+  /ldk/api/v5/registeredMachines/{registeredMachineId}/syncState:
+    $ref: './paths/registeredMachine.yaml#/userRegisteredMachines_registeredMachineId_syncState'     
+  /ldk/api/v5/registeredMachines/{registeredMachineId}/enable:
+    $ref: './paths/registeredMachine.yaml#/userRegisteredMachines_registeredMachineId_enable'  
+  /ldk/api/v5/registeredMachines/{registeredMachineId}/disable:
+    $ref: './paths/registeredMachine.yaml#/userRegisteredMachines_registeredMachineId_disable'               
+#definitions:
+#  $ref: ./definitions/definition.yaml
+
+#cloudlm
+  /rmslm/features:
+    $ref: './paths/rmsFeatures.yaml#/featureInfo'
+  /rmslm/features/{featureId}/clients:
+    $ref: './paths/rmsFeatures.yaml#/clientInfo'
+  /rmslm/features/{featureId}/licenses:
+    $ref: './paths/rmsFeatures.yaml#/licenseInfo'
+  /rmslm/aboutMe:
+    $ref: "./paths/rmsFeatures.yaml#/aboutMe"
+
+  /rmslm/licenseSessions:
+    $ref: './paths/rmsLicenseSessions.yaml#/licenseSessions'
+
+  /rmslm/licenseSessions/{licenseSessionId}/logout:
+    $ref: './paths/rmsLicenseSessions.yaml#/logout'
+  /rmslm/licenseSessions/{licenseSessionId}/refresh:
+    $ref: './paths/rmsLicenseSessions.yaml#/refresh'
+
+  /rmslm/licenseSessions/terminate:
+    $ref: './paths/rmsLicenseSessions.yaml#/terminate'
+  
+  /rmslm/licenseSessions/{licenseSessionId}/terminate:
+    $ref: './paths/rmsLicenseSessions.yaml#/terminateSession'
+
+  /rmslm/features/{featureId}/licensedUserAccounts:
+    $ref: './paths/rmsUserAccounts.yaml#/licensedUserAccounts'
+
+  
+#Tokenservice
+  /token/api/v5/registrationTokens:
+    $ref: './paths/registrationToken.yaml#/registrationTokens'
+  /token/api/v5/registrationTokens/{registrationTokenId}:
+    $ref: './paths/registrationToken.yaml#/registrationToken_registerationId'
+
+#LDK Licese Session
+  /ldk/api/v5/licenseSessions:
+    $ref: './paths/ldklicenseSessions.yaml#/ldklicenseSessions'
+  /ldk/api/v5/licenseSessions/{sessionId}:
+    $ref: './paths/ldklicenseSessions.yaml#/ldklicenseSessions_sessionId'
+
+#AccessToken
+  /token/api/v5/authTokens:
+    $ref: './paths/registrationToken.yaml#/authTokens'
+  /token/api/v5/authTokens/{authTokenId}:
+    $ref: './paths/registrationToken.yaml#/authToken_authTokenId' 
+#Idp Configuration
+  /token/api/v5/idpConfigurations:
+    $ref: './paths/getIdpConfiguration.yaml#/idpconfigurations'  
+    
+#Client Endpoints
+  /token/api/v5/clients:
+    $ref: './paths/client.yaml#/clients'
+  /token/api/v5/clients/{id}:
+    $ref: './paths/client.yaml#/client_id'
+  /token/api/v5/clients/{id}/clientSecret:
+    $ref: './paths/client.yaml#/client_id_clientsecret'
+
+  /ems/api/v5/customers/{customerId}/licenseGrants/{licenseGrantId}/accessGrants:
+    $ref: './paths/licenseGrant.yaml#/access_grant'
+  
+parameters:
+  $ref: ./parameters/parameter.yaml
+responses:
+  $ref: ./responses/response.yaml
+description:
+  $ref: ./descriptions/description.yaml
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: "**Login Type**\n - Vendor Login: Use the user ID as the username.\n - Partner Login: Use the partner user ID prefixed with <i>partner-</i> as the username.\n - Customer Login using User Email: Use the user email address prefixed with <i>endUser-</i> as the username.\n - Customer Login using Product Key: Use <i>pkId</i> as the username and Product Key as the password.\n - Customer Login using Entitlement ID: Use <i>eId</i> as the username and Entitlement ID as the password.\n \n <b>Note:</b> If you are using your own identity provider (not Sentinel IDP), use one of the OAuth authorization options listed below."
+    basicAuthForAddAuth:
+      type: http
+      scheme: basic
+      description: "Decode the registration token to get username and password"
+    OAuth2_client_Credentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: keycloak_url/realms/realm_name/protocol/openid-connect/token 
+          scopes: {}
+      description: "Enter the OAuth client ID and client secret defined in the prerequisite below.\n\n<b>Prerequisite:</b>  In Sentinel EMS, create an OAuth client for use with the Sentinel EMS REST API Reference application (select Identities & Access > OAuth Clients), where: \n - Client Type: Confidential \n - Grant Type: Client Credentials"
+    OAuth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: keycloak_url/realms/realm_name/protocol/openid-connect/token
+          scopes: {}
+      description: 'Put "ems-scl-public-client" in client_id and leave "client_secret" blank.'       
+    OAuth2_AuthorizationCode:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: keycloak_url/realms/realm_name/protocol/openid-connect/auth
+          tokenUrl: keycloak_url/realms/realm_name/protocol/openid-connect/token
+          scopes: {}
+      description: "Enter the OAuth client ID and client secret defined in the prerequisite below.\n\n <b>Prerequisite:</b>  In Sentinel EMS, create an OAuth client for use with the Sentinel EMS REST API Reference application (select Identities & Access > OAuth Clients), where: \n -  Client Type: Public (because this is a single-page application (SPA)) \n - Grant Type: Authorization Code \n - Web Origins: Use the https://{vendor_portal_domain_name} format. \n - Redirect URI: Use the https://{vendor_portal_domain_name}/* format. \n - ONLY include PKCE in a production environment that uses a Public client. \n\n <b>Note:</b> \n -  If you get an 'invalid parameter:redirect_uri' error, then the client_id and/or redirect_uri values are incorrect. Fix the values and try again. \n -  If you want to change to another user, click 'Reset'. Then clear the cookies in the browser cache and set the credentials."
+    APIKeyHeader:
+      type: apiKey
+      in: header  
+      name: X-API-Key        
+      description: 'The API key that Sentinel EMS uses to authenticate requests from your client application for the data of entitled features. You must add an Authorization header containing your API key to your requests. The API key for a client application is available from Sentinel EMS Administration Console.<br><b>Note:</b> You need to ensure that the API key is distributed to only the authorized users.'
+
+    Bearer:
+      type: http
+      scheme: bearer
+      description: "Bearer token to access OAuth 2.0-protected resources"
+security:
+  - basicAuth: []
+  - OAuth2_client_Credentials: [] 
+  - OAuth2_AuthorizationCode: []
+errorCodeMessage: '<a href=''https://docs.sentinel.thalesgroup.com/softwareandservices/ems/EMSdocs/WSG/Default.htm#Errors.htm'' target=''_blank''>View Sentinel EMS REST API Error Codes</a>'
+footer: '<div style="border: 1px solid #d2d4d6;padding: .167rem 15px;font-size: .74375rem;color: #797979;">Copyright <i class="far fa-copyright" style="font-size: 10px;"></i> 2009-2025 THALES. All rights reserved. | <a target="_blank" href="https://supportportal.thalesgroup.com/csm?id=sentinel">Support</a></div>'

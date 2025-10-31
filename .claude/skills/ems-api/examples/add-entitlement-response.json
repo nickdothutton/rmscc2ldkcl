@@ -1,0 +1,380 @@
+{
+  "entitlement": {
+    "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "externalId": "entitlementExternalId",
+    "createdBy": "TestUserName",
+    "creationDate": "2019-12-19 06:43",
+    "lastModifiedBy": "TestUserName",
+    "lastModifiedDate": "2019-12-19 06:43",
+    "identifier": "",
+    "entitlementAsWhole": false,
+    "eId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "startDate": "2017-10-20",
+    "expiry": {
+      "neverExpires": true,
+      "endDate": "",
+      "expiryInDays": ""
+    },
+    "marketGroup": {
+      "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "name": "TestMarketgroup"
+    },
+    "customer": {
+      "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "name": "TestCustomer",
+      "identifier": "",
+      "externalId": ""
+    },
+    "contact": {
+      "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "emailId": "TestUser@example.com",
+      "externalId": "UserExternalId"
+    },
+    "entitlementPartners": {
+      "entitlementPartner": [
+        {
+          "partner": {
+            "id": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+            "name": "TestChannelPartner",
+            "identifier": "",
+            "externalId": ""
+          }
+        }
+      ]
+    },
+    "userRegistration": "MANDATORY",
+    "refId1": "refId1",
+    "refId2": "refId2",
+    "activationAllowed": true,
+    "allowActivationBy": "ALL_USERS",
+    "revocationAllowed": true,
+    "state": "ENABLE",
+    "sendNotification": true,
+    "ccEmail": "ccEmail@example.com",
+    "isTest": false,
+    "customAttributes": {
+      "customAttribute": [
+        {
+          "name": "",
+          "value": ""
+        }
+      ]
+    },
+    "totalRegisteredQuantity": 1,
+    "entitlementFingerprints": {
+      "entitlementFingerprint": [
+        {
+          "id": "",
+          "friendlyName": "",
+          "registeredQuantity": 1
+        }
+      ]
+    },
+    "productKeys": {
+      "totalRegisteredQuantity": 1,
+      "productKey": [
+        {
+          "pkId": "004641bc-9e83-4bdf-bbdc-5f9c9073cd57",
+          "startDate": "2017-10-20",
+          "creationDate": "2019-12-19 06:43",
+          "lastModifiedDate": "2019-12-19 06:43",
+          "expiry": {
+            "neverExpires": true,
+            "endDate": "",
+            "expiryInDays": ""
+          },
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "externalId": "lineItemExternalId",
+          "enforcement": {
+            "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+            "name": "Sentinel RMS",
+            "version": "9.5"
+          },
+          "totalQuantity": 10,
+          "availableQuantity": 10,
+          "splittedQuantity": 2,
+          "activationMethod": "FIXED",
+          "fixedQuantity": 1,
+          "limitType": 0,
+          "maxLimit": 1,
+          "extnLDK": {
+            "lockingType": "HL_or_SL_AdminMode_or_SL_UserMode",
+            "rehostState": "ENABLE",
+            "isNotLockedToDevice": "false",
+            "upgradeToDriverless": "true",
+            "vclock": "true",
+            "prdMemoryReferences": {
+              "memoryFile": [
+                {
+                  "fileName": "memoryFile",
+                  "text": "memoryContent",
+                  "fileId": 1,
+                  "fileType": "READ_WRITE",
+                  "fileSize": "100",
+                  "segmentName": "memorySegment",
+                  "size": "100",
+                  "offset": "0",
+                  "applyMemory": "ADD"
+                }
+              ]
+            }
+          },
+          "state": "DRAFT",
+          "productKeyFingerprints": {
+            "productKeyFingerprint": [
+              {
+                "id": "",
+                "friendlyName": "",
+                "registeredQuantity": 1
+              }
+            ]
+          },
+          "item": {
+            "itemSuite": {
+              "suite": {
+                "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "nameVersion": {
+                  "name": "name",
+                  "version": "ver1"
+                },
+                "externalId": "TestExternalId"
+              },
+              "itemProducts": {
+                "itemProduct": [
+                  {
+                    "product": {
+                      "externalId": "TestExternalId",
+                      "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                      "identifier": "TestIdentifier",
+                      "productType": "DEFAULT",
+                      "nameVersion": {
+                        "name": "TestProduct",
+                        "version": "1.0"
+                      }
+                    },
+                    "itemProductFeatures": {
+                      "itemProductFeature": [
+                        {
+                          "featureMultiplier": 1,
+                          "feature": {
+                            "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                            "externalId": "ext1",
+                            "identifier": "",
+                            "nameVersion": {
+                              "name": "testFeature",
+                              "version": "1.0"
+                            }
+                          },
+                          "itemFeatureLicenseModel": {
+                            "licenseModel": {
+                              "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                              "name": "Trial Standalone Node Locked"
+                            },
+                            "attributes": {
+                              "attribute": [
+                                {
+                                  "name": "",
+                                  "value": "",
+                                  "encodeToBase64": false
+                                }
+                              ]
+                            }
+                          },
+                          "itemFeatureState": "INCLUDED",
+                          "SAOT": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "itemProduct": {
+              "product": {
+                "externalId": "TestExternalId",
+                "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "identifier": "TestIdentifier",
+                "productType": "DEFAULT",
+                "nameVersion": {
+                  "name": "TestProduct",
+                  "version": "1.0"
+                }
+              },
+              "itemProductFeatures": {
+                "itemProductFeature": [
+                  {
+                    "featureMultiplier": 1,
+                    "feature": {
+                      "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                      "externalId": "ext1",
+                      "identifier": "",
+                      "nameVersion": {
+                        "name": "testFeature",
+                        "version": "1.0"
+                      }
+                    },
+                    "itemFeatureLicenseModel": {
+                      "licenseModel": {
+                        "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                        "name": "Trial Standalone Node Locked"
+                      },
+                      "attributes": {
+                        "attribute": [
+                          {
+                            "name": "",
+                            "value": "",
+                            "encodeToBase64": false
+                          }
+                        ]
+                      }
+                    },
+                    "itemFeatureState": "INCLUDED",
+                    "SAOT": false
+                  }
+                ]
+              }
+            }
+          },
+          "commonLicenseAttributes": {
+            "commonLicenseAttribute": [
+              {
+                "name": "PRIMARY_1_CRITERIA",
+                "value": "4"
+              }
+            ]
+          },
+          "namedUsers": {
+            "namedUser": [
+              {
+                "name": "abc",
+                "creationDate": "2019-12-19 06:43"
+              }
+            ]
+          },
+          "activationAttributes": {
+            "activationAttribute": [
+              {
+                "name": "PRIMARY_1_CRITERIA",
+                "value": "4",
+                "readOnly": true,
+                "mandatory": false,
+                "associatedAttribute": {
+                  "name": "PRIMARY_1_INFO",
+                  "value": "4",
+                  "readOnly": false,
+                  "mandatory": true
+                },
+                "groupName": "LOCKING",
+                "subGroupName": ""
+              }
+            ]
+          },
+          "variantProducts": {
+            "totalRegisteredQuantity": 1,
+            "variantProduct": [
+              {
+                "variantId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "nameVersion": {
+                  "name": "TestProduct",
+                  "version": "1.0"
+                },
+                "identifier": "",
+                "activationMethod": "FIXED",
+                "fixedQuantity": 1,
+                "limitType": 0,
+                "maxLimit": 0,
+                "variantInfo": "1",
+                "commonLicenseAttributes": {
+                  "commonLicenseAttribute": [
+                    {
+                      "attribute": {
+                        "name": "PRIMARY_1_CRITERIA",
+                        "value": "4"
+                      }
+                    }
+                  ]
+                },
+                "extnLDK": {
+                  "lockingType": "HL_or_SL_AdminMode_or_SL_UserMode",
+                  "rehostState": "ENABLE",
+                  "isNotLockedToDevice": "false",
+                  "upgradeToDriverless": "true",
+                  "vclock": "true",
+                  "prdMemoryReferences": {
+                    "memoryFile": [
+                      {
+                        "fileName": "memoryFile",
+                        "text": "memoryContent",
+                        "fileId": 1,
+                        "fileType": "READ_WRITE",
+                        "fileSize": "100",
+                        "segmentName": "memorySegment",
+                        "size": "100",
+                        "offset": "0",
+                        "applyMemory": "ADD"
+                      }
+                    ]
+                  }
+                },
+                "activationAttributes": {
+                  "activationAttribute": [
+                    {
+                      "name": "PRIMARY_1_CRITERIA",
+                      "value": "4",
+                      "readOnly": true,
+                      "mandatory": false,
+                      "associatedAttribute": {
+                        "name": "PRIMARY_1_INFO",
+                        "value": "4",
+                        "readOnly": false,
+                        "mandatory": true
+                      },
+                      "groupName": "LOCKING",
+                      "subGroupName": ""
+                    }
+                  ]
+                },
+                "productVariantFingerprints": {
+                  "productVariantFingerprint": [
+                    {
+                      "id": "",
+                      "friendlyName": "",
+                      "registeredQuantity": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "customAttributes": {
+            "customAttribute": [
+              {
+                "name": "",
+                "value": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "entitlementAttributes": {
+      "entitlementAttribute": [
+        {
+          "name": "DURATION",
+          "value": "2160",
+          "encodeToBase64": false,
+          "isSANL": false,
+          "groupName": "CLOUD_SERVED",
+          "subGroupName": "CLOUD_SUBGROUP"
+        },
+        {
+          "name": "FINGERPRINT_ONLY",
+          "value": false,
+          "isSANL": true,
+          "groupName": "ON_PREMISE",
+          "subGroupName": ""
+        }
+      ]
+    }
+  }
+}

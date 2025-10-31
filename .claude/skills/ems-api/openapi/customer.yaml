@@ -1,0 +1,542 @@
+customers:
+  post:
+    tags:
+      - Customer
+    summary: 'Add Customer'
+    description: "Add a new customer. \nA customer refers to a current or potential buyer or user of entitlements. Typically, you generate entitlements for a customer who has placed an order.\n"
+    operationId: addCustomer
+    displayName: 'Add Customer'
+    parameters:
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+          'application/xml':
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+        description: 'Customer details to be added.'
+        required: true
+    responses:
+      '201':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+          application/xml:
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+        description: "Customer created\n The auto-generated unique identifier (id) of the new resource is returned in the response.\n"
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  get:
+    tags:
+      - Customer
+    summary: 'Search Customers'
+    description:
+      $ref: '../descriptions/description.yaml#/snp_search'
+    operationId: searchCustomers
+    displayName: 'Search Customers'
+    parameters:
+      -
+        name: id
+        in: query
+        description: 'Auto-generated unique identifier of the customer.  You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: name
+        in: query
+        description: 'Name of the customer.'
+        type: string
+      -
+        name: identifier
+        in: query
+        description: 'Unique identifier of the customer.'
+        type: string
+      -
+        name: externalId
+        in: query
+        description: 'External identifier of the customer.'
+        type: string
+      -
+        name: refId
+        in: query
+        description: 'Reference identifier of the customer.'
+        type: string
+      -
+        name: crmId
+        in: query
+        description: 'The Customer Relationship Management (CRM) identification number.'
+        type: string
+      -
+        name: description
+        in: query
+        description: 'Description of the customer.'
+        type: string
+      -
+        name: marketGroupId
+        in: query
+        description: 'Auto-generated unique identifier of the market group associated with the customer.'
+        type: string
+      -
+        name: marketGroupName
+        in: query
+        description: 'Name of the market group associated with the customer.'
+        type: string
+      -
+        name: state
+        in: query
+        description: "State of the customer. Possible values are ENABLE and DISABLE. \nThe users of the customer can access the Sentinel EMS Customer Portal only if the state is set to ENABLE.\n"
+        type: string
+        enum:
+          - ENABLE
+          - DISABLE
+      -
+        name: contactEmailId
+        in: query
+        description: 'Unique email address of the user associated with the customer.'
+        type: string
+      -
+        name: contactId
+        in: query
+        description: 'Auto-generated unique identifier of the user. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: contactExternalId
+        in: query
+        description: 'Unique external identifier of the user associated with the customer.'
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/pageStartIndex'
+      -
+        $ref: '../parameters/parameter.yaml#/pageSize'
+      -
+        $ref: '../parameters/parameter.yaml#/searchPattern'
+      -
+        name: sortByAsc
+        in: query
+        description: 'Column name by which results are sorted in ascending order. Possible values are name, marketGroupName, identifier, refId, state, externalId, contactEmailId, phoneNumber, customeName, crmId, description, contactId, creationDate, and lastModifiedDate.'
+        type: string
+        enum:
+          - name
+          - marketGroupName
+          - identifier
+          - externalId
+          - refId
+          - crmId
+          - description
+          - state
+          - timeZoneId
+          - creationDate
+          - lastModifiedDate
+      -
+        name: sortByDesc
+        in: query
+        description: 'Column name by which results are sorted in descending order. Possible values are name, marketGroupName, identifier, refId, state, externalId, contactEmailId, phoneNumber, customeName, crmId, description, contactId, creationDate, and lastModifiedDate.'
+        type: string
+        enum:
+          - name
+          - marketGroupName
+          - identifier
+          - externalId
+          - refId
+          - crmId
+          - description
+          - state
+          - timeZoneId
+          - creationDate
+          - lastModifiedDate
+      -
+        name: creationDateFrom
+        in: query
+        description: 'Start of the creation date range (in the YYYY-MM-DD format) to search customers.'
+        type: string
+      -
+        name: creationDateTo
+        in: query
+        description: 'End of the creation date range (in the YYYY-MM-DD format) to search customers.'
+        type: string
+      -
+        in: query
+        name: raw
+        displayName: 'Custom Attributes'
+        type: string
+        description: "You can search on custom attributes of customer.\nFollowing is a sample URI: \n`GET /ems/api/v5/customers?CA_CSTMR.laptop=sony`\n\nAs shown in the above URI, you can use the following prefixes to perform searches using custom attributes:\n- CA_CSTMR: Perform search on a customer-level custom attribute.\n\nThe rules to be followed when using custom attributes to search customers are:\n- All prefixes are case-sensitive.\n- To provide multiple values:\n  -  Use **&** separator.\n  -  Escape the comma (using the backslash escape character), if the comma exists in the value to be provided. \n\nNote: For custom attributes of the type Boolean, the value to be provided is 0 or 1.\n"
+      -
+        name: embed
+        in: query
+        description: 'A comma-separated list of fields to return. You can reference parameters of nested objects with dot notation. Fields available are: customAttributes, fingerprints, and contacts.'
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/customerGet.yaml#/customers'
+          application/xml:
+            schema:
+              $ref: '../definitions/customerGet.yaml#/customers'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+customers_customerId:
+  get:
+    tags:
+      - Customer
+    summary: 'Get Customer'
+    description: 'Retrieve a specific customer based on its unique identifier.'
+    operationId: getCustomer
+    displayName: 'Get Customer'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/customerGet.yaml#/customer'
+          application/xml:
+            schema:
+              $ref: '../definitions/customerGet.yaml#/customer'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  put:
+    tags:
+      - Customer
+    summary: 'Replace Customer'
+    description: "Update an existing customer completely. \n- If a parameter is not provided, the existing value will be replaced by blank or default.\n- If a parameter is set to blank, the existing value will be replaced with blank.\n- If a parameter is set to a valid value, the existing value will be replaced by the given value.\n"
+    operationId: updateCustomer
+    displayName: 'Replace Customer'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+          'application/xml':
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+        description: 'Customer details to be updated.'
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+          application/xml:
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    tags:
+      - Customer
+    summary: 'Update Customer'
+    description:
+      $ref: '../descriptions/description.yaml#/snp_patch'
+    operationId: partialUpdateCustomer
+    displayName: 'Update Customer'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+          'application/xml':
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+        description: 'Customer details to be updated.'
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+          application/xml:
+            schema:
+              $ref: '../definitions/customer.yaml#/customer'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Customer
+    summary: 'Delete Customer'
+    description: 'Delete a customer if it is not associated with any entitlement.'
+    operationId: deleteCustomer
+    displayName: 'Delete Customer'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+customers_bulk:
+  post:
+    tags:
+      - Customer
+    summary: 'Bulk Customer Upload'
+    consumes:
+      - multipart/form-data
+    description: "Upload a large customer data set to Sentinel EMS. The supported input formats are CSV and JSON. For JSON format type, refer to the JSON output of the Search Customers API. For CSV format type, refer to the Sentinel EMS User Guide.\n **Note**:\n- With this endpoint, a bulk upload request is submitted to the job queue. The queue is processed in the background and a notification is sent to the administrator after the job completion. \n- The bulk upload is an asynchronous job and takes time to complete, depending on the volume of the input data and requests in the job queue. \n- Only vendor users with administrator permissions can use this endpoint. \n"
+    operationId: dataUploadCustomer
+    displayName: 'Bulk Customer Upload'
+    parameters:
+      -
+        $ref: '../parameters/parameter.yaml#/dataUploadName'
+      -
+        $ref: '../parameters/parameter.yaml#/dataUploadFile'
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    responses:
+      '202':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/customer.yaml#/batchjobCustomer'
+          application/xml:
+            schema:
+              $ref: '../definitions/customer.yaml#/batchjobCustomer'
+        description: "Accepted\nThe auto-generated unique identifier (id) of the new resource is returned in the response. Save this identifier to get the batch job in future.\n"
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+customers_customerId_contacts:
+  put:
+    tags:
+      - Customer
+    summary: 'Replace Associated Users'
+    description: "Replace the already-associated users of a customer with the given users.\n"
+    operationId: updateCustomerContacts
+    displayName: 'Replace Associated Users'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/customer.yaml#/customerContacts'
+          'application/xml':
+            schema:
+              $ref: '../definitions/customer.yaml#/customerContacts'
+        description: 'Customer user details to be updated.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    tags:
+      - Customer
+    summary: 'Update Associated Users'
+    description: 'Associate a new user to the customer in addition to the existing users.'
+    operationId: partialUpdateCustomerContacts
+    displayName: 'Update Associated Users'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/customer.yaml#/customerContacts'
+          'application/xml':
+            schema:
+              $ref: '../definitions/customer.yaml#/customerContacts'
+        description: 'Customer user details to be updated.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Customer
+    summary: 'Delete Associated User'
+    description: 'You can dissociate a user from a customer if the customer is not associated with any entitlement, activation, or revocation.'
+    operationId: deleteCustomerContact
+    displayName: 'Delete Associated User'
+    parameters:
+      -
+        name: customerId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_custmr'
+        required: true
+        type: string
+      -
+        in: query
+        name: id
+        description: 'ID of the user to be removed from the customer.'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'

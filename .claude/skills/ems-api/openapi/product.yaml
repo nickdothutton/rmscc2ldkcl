@@ -1,0 +1,608 @@
+'products':
+  post:
+    useCases:
+      - "**Create a product without any feature**\n- Remove the entire productFeatures object.\n- Set mandatory properties:\n  - Name of the namespace (namespace > name).\n  - Name of the product (product > nameVersion > name)\n\n Note: The product version can be set to a specific value or blank. If the version parameter is not included in the request body, its value defaults to 1."
+      - "**Create a product with a feature**\n- Set mandatory properties:\n  - Name and version of the feature (productFeatures > productFeature > feature > nameVersion > name, version).\n"
+      - "**Create a product when the feature has several license models associated with it. Provide  details of the license model that you want to select as default for the feature.**\n- Specify the default license model, by setting either of the following :\n  - ID of the default license model (product > productFeatures> defaultLicenseModel > licenseModel > id)\n  - Combination of the enforcement name and default license model name (product > productFeatures> defaultLicenseModel > enforcement > name and product > productFeatures> defaultLicenseModel > licenseModel > name)\n"
+    fitUseCases:
+      - "**Add a product to an entitlement using a Sentinel Fit license.**   \nSet the mandatory **productAttribute** properties \n  - LICENSE_SIGNING (productAttributes > productAttribute > LICENSE_SIGNING > value).\n   Specifies how to sign the license. \n   Possible values:\n    - For RSA-2048-ADM-PKCS-V15, enter: **1**\n    - For AES-128-OMAC, enter: **2**    \n  - BATCH_CODE (productAttributes > productAttribute > BATCH_CODE > value). \n   Represents either the demo vendor code (DEMOMA) or your company&#8217;s unique vendor code and consists of a maximum of six characters. \n   Possible values:\n    - For DEMOMA (default), enter: **1**\n    - For your company&#8217;s unique batch code, enter: **2**\n"
+      - "**Example:** \n <pre>\n      &lt;productAttributes&gt;\n        &lt;productAttribute&gt;\n          &lt;name&gt;LICENSE_SIGNING&lt;/name&gt;\n          &lt;value&gt;1&lt;/value&gt;\n        &lt;/productAttribute&gt;\n        &lt;productAttribute&gt;\n          &lt;name&gt;BATCH_CODE&lt;/name&gt;\n          &lt;value&gt;1&lt;/value&gt;\n        &lt;/productAttribute&gt;\n      &lt;/productAttributes&gt;\n </pre>\n"
+    tags:
+      - Catalog
+    summary: 'Add Product'
+    operationId: addProduct
+    displayName: 'Add Product'
+    description: "Add a new product. \nA product is a saleable entity that can contain a single feature or a combination of individual features. A product can be associated with one or more license models.\n"
+    parameters:
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          'application/xml':
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description: 'Details of the product to be added to a committed entitlement.'
+        required: true
+    responses:
+      '201':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          application/xml:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description: "Product created\nThe auto-generated unique identifier (id) of the new resource is returned in the response.\n"
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  get:
+    tags:
+      - Catalog
+    summary: 'Search Products'
+    description:
+      $ref: '../descriptions/description.yaml#/snp_search'
+    operationId: searchProducts
+    displayName: 'Search Products'
+    parameters:
+      -
+        name: id
+        in: query
+        description: 'Auto-generated unique identifier of the product. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: namespaceId
+        in: query
+        description: 'Auto-generated unique identifier of the namespace. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: namespaceName
+        in: query
+        description: 'Name of the namespace. You must provide the exact namespace name for a successful search.'
+        type: string
+      -
+        name: name
+        in: query
+        description: 'Name of the product.'
+        type: string
+      -
+        name: version
+        in: query
+        description: 'Version of the product.'
+        type: string
+      -
+        name: identifier
+        in: query
+        description: "Unique identifier of the product. You can specify up to 50 values separated by commas. You must provide exact values for a successful search."
+        type: string
+      -
+        name: externalId
+        in: query
+        description: 'Unique external identifier of the product. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: productType
+        in: query
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prodType'
+        type: string
+      -
+        name: variantLessProducts
+        in: query
+        description: "Specify true to search for only those versionless products that do not have variants. Specify false to search for all products. \n Default: false"
+        type: boolean
+        Default: false
+      -
+        name: refId1
+        in: query
+        description: 'First reference identifier of the product as used by external ERP/CRM systems.'
+        type: string
+      -
+        name: refId2
+        in: query
+        description: 'Second reference identifier of the product as used by external ERP/CRM systems.'
+        type: string
+      -
+        name: isProvisioning
+        in: query
+        description: 
+           $ref: '../descriptions/description.yaml#/snp_product_isProvisioning'
+        type: boolean
+      -
+        name: isAutoActivation
+        in: query
+        description: 
+           $ref: '../descriptions/description.yaml#/snp_product_isAutoactivation'
+        type: boolean
+      -
+        name: licenseModelId
+        in: query
+        description: 'Auto-generated unique identifier of the license model. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: licenseModelName
+        in: query
+        description: 'Name of the license model.'
+        type: string
+      -
+        name: featureId
+        in: query
+        description: 'Auto-generated unique identifier of the feature. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: featureName
+        in: query
+        description: 'Name of the feature.'
+        type: string
+      -
+        name: state
+        in: query
+        type: string
+        description: "State of the product. Possible values are:\n- DRAFT: Initial state in which a product is first created. In this state, you can edit or delete the product. Entitlements cannot be created for a DRAFT product. However, you can create test entitlements for a DRAFT product. \n- ENABLE: Represents active products. In this state, you can create entitlements for the product. However, updating or disabling a feature or changing features associated with the product is not allowed.\n- DISABLE: Represents obsolete products. In this state, you cannot edit or delete the product. Also, the product cannot be associated with entitlements. You can enable the product again if required.\n"
+        enum:
+          - DRAFT
+          - ENABLE
+          - DISABLE
+      -
+        name: family
+        in: query
+        description: 'Name of the product family, which represents a group of products derived from a common product platform.'
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/pageStartIndex'
+      -
+        $ref: '../parameters/parameter.yaml#/pageSize'
+      -
+        $ref: '../parameters/parameter.yaml#/searchPattern'
+      -
+        name: sortByAsc
+        in: query
+        description: 'Field name to sort results in ascending order. Possible values are  name, namespaceName, description, productType, refId1, refId2, family, creationDate, lastModifiedDate, version, externalId, identifier, deployed and state.'
+        type: string
+        enum:
+          - name
+          - namespaceName
+          - description
+          - version
+          - externalId
+          - identifier
+          - deployed
+          - state
+          - productType
+          - refId1
+          - refId2
+          - isProvisioning
+          - isAutoActivation
+          - family
+          - activationMethod
+          - fixedQuantity
+          - creationDate
+          - lastModifiedDate
+      -
+        name: sortByDesc
+        in: query
+        description: 'Field name to sort results in descending order. Possible values are id, name, namespaceName, description, version, externalId, identifier, deployed, and state.'
+        type: string
+        enum:
+          - name
+          - namespaceName
+          - description
+          - version
+          - externalId
+          - identifier
+          - deployed
+          - state
+          - productType
+          - refId1
+          - refId2
+          - isProvisioning
+          - isAutoActivation
+          - family
+          - activationMethod
+          - fixedQuantity
+          - creationDate
+          - lastModifiedDate
+      -
+        name: createdBy
+        in: query
+        description: 'Name of the user who created the product.'
+        type: string
+      -
+        name: creationDateFrom
+        in: query
+        description: 'Start of the creation date range (in the YYYY-MM-DD format) to search products.'
+        type: string
+      -
+        name: creationDateTo
+        in: query
+        description: 'End of the creation date range (in the YYYY-MM-DD format) to search products.'
+        type: string
+      -
+        name: lastModifiedBy
+        in: query
+        description: 'Name of the user who last modified the product.'
+        type: string
+      -
+        in: query
+        name: raw
+        displayName: 'Custom Attributes'
+        type: string
+        description: "You can search on custom attributes of product.\nFollowing is a sample URI: \n`GET /ems/api/v5/products?CA_PRD.laptop=sony`\n\nAs shown in the above URI, you can use the following prefixes to perform searches using custom attributes:\n- CA_PRD: Perform search on a product-level custom attribute.\n\nThe rules to be followed when using custom attributes to search products are:\n- All prefixes are case-sensitive.\n- To provide multiple values:\n  -  Use **&** separator.\n  -  Escape the comma (using the backslash escape character), if the comma exists in the value to be provided. \n\nNote: For custom attributes of the type Boolean, the value to be provided is 0 or 1.\n"
+      -
+        name: embed
+        in: query
+        description: "A comma-separated list of fields to return. You can reference parameters of nested objects with dot notation. Fields available are: productFeatures, productAttributes, customAttributes, productDownloads and parentProduct.\n"
+        type: string
+      - 
+        name: embedExtnLDK
+        in: query
+        description: "A comma-separated list of fields to return. You can reference parameters of nested objects with dot notation. Fields available are: productMemory.\n"
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/product.yaml#/products'
+          application/xml:
+            schema:
+              $ref: '../definitions/product.yaml#/products'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'products_productId':
+  get:
+    tags:
+      - Catalog
+    summary: 'Get Product'
+    description: "Retrieve a specific product based on its unique identifier.\n"
+    operationId: getProduct
+    displayName: 'Get Product'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          application/xml:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+  put:
+    tags:
+      - Catalog
+    summary: 'Replace Product'
+    description: "Update an existing product completely. \n- If a parameter is not provided, the existing value will be replaced by blank or default.\n- If a parameter is set to blank, the existing value will be replaced with blank.\n- If a parameter is set to a valid value, the existing value will be replaced by the given value.\n- For the values allowed for the fileSize, segmentName, size, offset, and text parameters of a memory file, refer to the memory-related sections of the Sentinel EMS User Guide.\n"
+    operationId: updateProduct
+    displayName: 'Replace Product'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          'application/xml':
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description: 'Product details to be updated.'
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          application/xml:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+  patch:
+    useCases:
+      - "**Mark the product life cycle stage as Complete**\n-  Set state to ENABLE in the product object.\n"
+      - "**Change product life cycle stage to End Of Life (EOL)**\n-   Set state to DISABLE in the product object.\n"
+      - "**Change the product family**\n-  Specify the product family ID in the familyId property, or the product family name in the familyName property.\n"
+      - "**Update the activation method before including the product in an entitlement**\n-  Set the activationMethod property in the entitlement > productKeys > productKey object.\n"
+      - "**Add another feature to a product**\n-  Add another productFeature object within productFeatures.\n"
+    tags:
+      - Catalog
+    summary: 'Update Product'
+    description:
+      $ref: '../descriptions/description.yaml#/snp_patch'
+    operationId: partialUpdateProduct
+    displayName: 'Update Product'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          'application/xml':
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description: 'Product details to be updated.'
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+          application/xml:
+            schema:
+              $ref: '../definitions/product.yaml#/product'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Catalog
+    summary: 'Delete Product'
+    description: 'Delete an existing product if it is in the draft state and not associated with any entitlement.'
+    operationId: deleteProduct
+    displayName: 'Delete Product'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'products_productId_productFeatures':
+  put:
+    tags:
+      - Catalog
+    summary: 'Replace Associated Features'
+    description: 'Replace the already-associated features in a product with the given features.'
+    operationId: updateProductFeatures
+    displayName: 'Replace Associated Features'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/product.yaml#/productFeatures'
+          'application/xml':
+            schema:
+              $ref: '../definitions/product.yaml#/productFeatures'
+        description: 'Feature details of the product.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    tags:
+      - Catalog
+    summary: 'Update Associated Features'
+    description: "Associate a new feature to the product in addition to the already-existing features.\n"
+    operationId: partialUpdateProductFeatures
+    displayName: 'Update Associated Features'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/product.yaml#/productFeatures'
+          'application/xml':
+            schema:
+              $ref: '../definitions/product.yaml#/productFeatures'
+        description: 'Feature details of the product.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Catalog
+    summary: 'Delete Associated Feature'
+    description: 'Delete a feature from an existing product if the product is in the draft state and not associated with any entitlement.'
+    operationId: deleteProductFeatures
+    displayName: 'Delete Associated Feature'
+    parameters:
+      -
+        name: productId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_prd'
+        required: true
+        type: string
+      -
+        in: query
+        name: id
+        description: 'ID of the product feature to be deleted.'
+        required: true
+        type: string
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'products_bulk':
+  post:
+    tags:
+      - Catalog
+    summary: 'Bulk Product Upload'
+    consumes:
+      - multipart/form-data
+    description: "Upload a large product data set to EMS. The supported input formats are CSV and JSON. For JSON format type, refer to the JSON output of the Search Products API. For CSV format type, refer to the EMS User Guide. \n **Note:** \n- With this endpoint, a bulk upload request is submitted to the job queue. The queue is processed in the background and a notification is sent to the administrator after the job completion. \n - The bulk upload is an asynchronous job and takes time to complete, depending on the volume of the input data and requests in the job queue. \n - Only users with Administrator permissions can use this endpoint.\n"
+    operationId: dataUploadProduct
+    displayName: 'Bulk Product Upload'
+    parameters:
+      -
+        $ref: '../parameters/parameter.yaml#/dataUploadName'
+      -
+        $ref: '../parameters/parameter.yaml#/dataUploadFile'
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    responses:
+      '202':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/product.yaml#/batchjobProduct'
+          application/xml:
+            schema:
+              $ref: '../definitions/product.yaml#/batchjobProduct'
+        description: "Accepted\nThe auto-generated unique identifier (id) of the new resource is returned in the response. Save this identifier to get the batch job in future.\n"
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'

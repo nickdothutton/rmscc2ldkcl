@@ -1,0 +1,1600 @@
+'entitlements':
+  post:
+    useCases:
+      - "**Create an entitlement without any product and with default options**\n- Use the object, entitlement. All parameters are optional.\n"
+      - "**Create an entitlement with multiple products**\n- In the entitlement > productKeys object, add the productKey object containing the product information, such as name, version, and id. \n  To associate multiple products, repeat the productKey object.\n"
+      - "**Create an entitlement with a customized EID**\n- In the entitlement object, set the eId property. \n  Note: The Allow manual creation of EID and PKID option should be enabled in the Administration Console.\n"
+      - "**Create an entitlement with customer details**\n- In the entitlement > customer object, set any of the following properties: id, name, identifier, or externalId.\n"
+      - "**Create an entitlement with a user**\n- In the entitlement > user object, set any of the following properties: id or emailId.\n"
+      - "**Add a channel partner to an entitlement**\n- In the entitlementPartners > entitlementPartner > partner object, set any of the following properties: id, name, or identifier. \n  To associate multiple channel partners, repeat the partner object. You can associate a maximum of five channel partners with an entitlement.\n"
+      - "**Create and commit an entitlement using a single API call**\n- In the entitlement object, set the state property to ENABLE.\n"
+      - "**Email the entitlement certificate to several recipients**\n- Specify email addresses (separated by semicolon) of up to 15 recipients in the ccEmail property. \n  Note: This field is applicable only if the CC Email Change Allowed option is selected in the Administration Console.\n"
+      - "**Create an entitlement with the custom product key if the Allow manual creation of EID and PKID option is selected in the Administration Console**\n- Create the entitlement using pkId. \n  In the entitlement > productKeys > productKey object, specify a value for pkId.\n"
+      - "**Add a start date to the product associated with an entitlement**\n- In the entitlement > productKeys > productKey object, set the startDate property.\n"
+      - "**Add an end date to the product associated with an entitlement**\n- In the entitlement > productKeys > productKey > expiry object, set the endDate property.\n"
+      - "**Configure the activation method of a product within an entitlement, if the activation method specified during product creation is SAOT**\n- In the entitlement > productKeys > productKey object, set the activationMethod property.\n"
+      - "**Configure the license model of a product within an entitlement, if the SAOT property (for productFeature) is set to true when creating a product** \n- Specify the license model details in the object, itemFeatureLicenseModel.\n"
+      - "**Override the value of fixedQuantity associated with a product when the activation method is FIXED (specified during creation)**\n- In the entitlement > productKeys > productKey object, set the fixedQuantity property.\n"
+      - "**Add more than one product or product suite**\n- Repeat the productKey object.\n"
+      - "**Create an entitlement with modified license attribute values**\n- Specify the license model details in the object, itemFeatureLicenseModel.\n"
+      - "**Include or exclude features while creating an entitlement (if product has multiple features and some or all features are excludable)**\n- Use the itemFeatureState property to include or exclude a feature from the product (Entitlement > productKeys > productKey > item > itemProduct > itemProductFeatures > itemProductFeature > itemFeatureState)\n"
+      - "**Specify the license model to use, if a feature has more than one license model**\n- Provide either ID or name of the license model that you want to include for the product, in the licenseModel object (Entitlement > productKeys > productKey > item > itemProduct > itemProductFeatures > itemProductFeature > itemFeatureLicenseModel > licenseModel).\n"
+      - "**Specify activation attributes**\n- These attributes are read-only and are specified using the object, activationAttributes. The attribute details depend on the license model included in the product. \nNote: For Sentinel LDK, specifying activation attributes is not relevant. \n"
+      - "**Configure product-level attributes during entitlement creation**\n- The object, commonLicenseAttributes, specifies product-level attributes, which can be configured during entitlement creation. The attribute details depend on licenses included in the product. \n   Note: \n In Sentinel RMS, for a network license, PRIMARY_1_CRITERIA. is used. For a standalone license, CLIENT_1_CRITERIA is used along with a NUM_CLIENT_LOCKED value, which specifies the number of client criteria. The default value of NUM_CLIENT_LOCKED is 1. \n   For Sentinel LDK, commonLicenseAttributes is not relevant.\n"
+      - "**Create an entitlement with named licenses for Sentinel RMS connected mode**\n- Set the NAMED_USER_LICENSE attribute to true in the commonLicenseAttributes object (entitlements > entitlement > productKeys > productKey > commonLicenseAttributes > commonLicenseAttribute).\n You can use NO_OF_NAMEDUSERS to specify the maximum number of named users.\n In the namedUsers object, enter the names of named users. \nThis information is relevant only for Sentinel RMS connected mode."
+      - "**Create a test entitlement**\n- Set the isTest property to true in the entitlement object.\n"
+      - "**Create an entitlement to obtain the full-duration license instead of obtaining lease period in slices**\n- In the entitlement > Lease Duration (hours) > Apply Full Duration, set the duration attribute as 438000.\n"
+      - "**Create an entitlement to renew the lease only when there is an update in the license terms**\n- In the entitlement > Lease Renewal Frequency (hours) > Do Not Renew Automatically (Exception: Entitlement Updates), set the renew_frequency attribute as 2147483647.\n"
+      - "**Restrict the activation of an entitlement to the vendor only**\n- In the entitlement object, set the allowActivationBy property to VENDOR_ONLY. \n  Note: The allowActivationBy property is applicable only when the activationAllowed property is set to true.\n"
+      - "**Allow all users (vendors, customers, and channel partners) to activate an entitlement**\n- In the entitlement object, set the allowActivationBy property to ALL_USERS explicitly, or do not include this property in the request because it automatically defaults to ALL_USERS. \n  Note: The allowActivationBy property is applicable only when the activationAllowed property is set to true.\n"
+    tags:
+      - Entitlement
+    summary: 'Add Entitlement'
+    description: "An entitlement refers to the rights of an end-user to use a software package.\nYou can create an entitlement in the draft state without providing product details.\nTo create an entitlement in the enabled state directly, associate at least one product and set the state parameter to ENABLE.\n"
+    operationId: addEntitlement
+    displayName: 'Add Entitlement'
+    parameters:
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description: "Details of the entitlement to be added.\nNote: \n - (For Sentinel RMS, Sentinel Fit, and Services) If the &#39;Copy License Date from Entitlement Line Item&#39; property is set to ‘Yes’ (Administration Console > Entitlement Configuration), do not provide the START_DATE and END_DATE attributes for the license model in the input. This ensures the start and end dates are copied from the entitlement line item to the license model. If you specify these attributes in the input, you must keep the dates the same as in the entitlement line item. \n - (For Sentinel LDK’s ‘Expiration Date' license model) If the &#39;Copy Dates from Entitlement Line Item&#39; option is set to ‘Yes’ during license model configuration, do not provide the START_DATE and END_DATE attributes in the input. This ensures the start and end dates are copied from the entitlement line item to the license model.\n - (For Sentinel RMS and Services) If the START_LICENSE_FROM_ACTIVATION_DATE attribute is &#39;true&#39; in the license model, then the START_DATE and END_DATE attribute values shown in the response of this endpoint are irrelevant. \n - (For Sentinel RMS) If the &#39;Set Start and End Dates on First Activation&#39; property is set to &#39;Yes&#39; (Administration Console > Activation Configuration), and the START_LICENSE_FROM_ACTIVATION_DATE attribute is set to &#39;true&#39; in the license model, then the START_DATE and END_DATE attributes will be set at the first activation. The START_DATE is the date of the first activation. The END_DATE is calculated based on the LICENSE_DURATION_IN_DAYS attribute value. "
+        required: true
+    responses:
+      '201':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description: "Entitlement created\nThe auto-generated unique identifier (id) of the new resource is returned in the response.\n"
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  get:
+    tags:
+      - Entitlement
+    summary: 'Search Entitlements'
+    description: "Retrieve all entitlements or a list of entitlements that match the given query parameters.\n\n"
+    operationId: searchEntitlements
+    displayName: 'Search Entitlements'
+    parameters:
+      -
+        name: id
+        in: query
+        description: 'Auto-generated unique identifier of the entitlement. You can specify up to 50 values separated by commas. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: eId
+        in: query
+        description: 'EID of the entitlement. You can specify multiple values separated by comma.'
+        type: string
+      -
+        name: productKey
+        in: query
+        description: 'Unique identifier (pkId) of the product key. You can specify multiple values separated by commas.'
+        type: string
+      -
+        name: itemExternalId
+        in: query
+        description: 'Unique external identifier of the product key.'
+        type: string
+      -
+        name: externalId
+        in: query
+        description: 'Unique external identifier of the entitlement.'
+        type: string
+      -
+        name: refId1
+        in: query
+        description: 'First reference identifier of the entitlement as used by external ERP/CRM systems.'
+        type: string
+      -
+        name: refId2
+        in: query
+        description: 'Second reference identifier of the entitlement as used by external ERP/CRM systems.'
+        type: string
+      -
+        name: state
+        in: query
+        description: 'State of the entitlement. Valid values are  DRAFT, ENABLE, DISABLE and CLOSED.'
+        type: string
+        enum:
+          - DRAFT
+          - ENABLE
+          - DISABLE
+          - CLOSED
+      -
+        name: createdBy
+        in: query
+        description: 'Name of the user who created the entitlement.'
+        type: string
+      -
+        name: creationDateFrom
+        in: query
+        description: 'Start of the creation date range (in the YYYY-MM-DD format) to search entitlements.'
+        type: string
+      -
+        name: creationDateTo
+        in: query
+        description: 'End of the creation date range (in the YYYY-MM-DD format) to search entitlements.'
+        type: string
+      -
+        name: startDateFrom
+        in: query
+        description: "The starting date of the expiration range (in YYYY-MM-DD format) to search for entitlements that start on or after the specified date.\n To find an entitlement starting on a specific date, for example, January 1, 2025, set both the startDateFrom and startDateTo to '2025-01-01'."
+        type: string
+      -
+        name: startDateTo
+        in: query
+        description: "The start date of the expiration range (in YYYY-MM-DD format) to search for entitlements that starting on or before the specified date.\n To find an entitlement starting on a specific date, for example, January 1, 2025, set both the startDateFrom and startDateTo to '2025-01-01'."
+        type: string
+      -
+        name: endDateFrom
+        in: query
+        description: "The starting date of the expiration range (in YYYY-MM-DD format) to search for entitlements that expire on or after the specified date.\n To find an entitlement expiring on a specific date, for example, December 31, 2024, set both the endDateFrom and endDateTo to '2024-12-31'."
+        type: string
+      -
+        name: endDateTo
+        in: query
+        description: "The end date of the expiration range (in YYYY-MM-DD format) to search for entitlements that expire on or before the specified date.\n To find an entitlement expiring on a specific date, for example, December 31, 2024, set both the endDateFrom and endDateTo to '2024-12-31'."
+        type: string
+      -
+        name: modifiedDateFrom
+        in: query
+        description: 'Start of the modified date range (in the YYYY-MM-DD format) to search entitlements. This filter excludes entitlements where the last modified date is the same as the creation date.'
+        type: string
+      -
+        name: modifiedDateTo
+        in: query
+        description: 'End of the modified date range (in the YYYY-MM-DD format) to search entitlements. This filter excludes entitlements where the last modified date is the same as the creation date.'
+        type: string
+      -
+        name: lastModifiedBy
+        in: query
+        description: 'Name of the user who last modified the entitlement.'
+        type: string
+      -
+        name: fingerprintFriendlyName
+        in: query
+        description: 'Fingerprint Friendly Name.'
+        type: string
+      -
+        name: contactName
+        in: query
+        description: 'Name of the user associated with the entitlement.'
+        type: string
+      -
+        name: contactEmailId
+        in: query
+        description: 'Unique email address of the user associated with the entitlement.'
+        type: string
+      -
+        name: contactExternalId
+        in: query
+        description: 'Unique external identifier of the user associated with the entitlement.'
+        type: string
+      -
+        name: customerId
+        in: query
+        description: 'Unique identifier of the customer associated with the entitlement.'
+        type: string
+      -
+        name: customerName
+        in: query
+        description: 'Name of the customer associated with the entitlement.'
+        type: string
+      -
+        name: customerIdentifier
+        in: query
+        description: 'Identifier of the customer associated with the entitlement.'
+        type: string
+      -
+        name: marketGroupId
+        in: query
+        description: 'Auto-generated unique identifier of the market group associated with the entitlement.'
+        type: string
+      -
+        name: marketGroupName
+        in: query
+        description: 'Name of the market group associated with the entitlement.'
+        type: string
+      -
+        name: partnerName
+        in: query
+        description: 'Name of the channel partner associated with the entitlement.'
+        type: string
+      -
+        name: partnerIdentifier
+        in: query
+        description: 'Unique identifier of the channel partner.'
+        type: string
+      -
+        name: partnerExternalId
+        in: query
+        description: 'External ID of the channel partner.'
+        type: string
+      -
+        name: featureId
+        in: query
+        description: 'Unique identifier of the feature associated with the entitlement. You can specify multiple values separated by comma. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: featureName
+        in: query
+        description: 'Name of the feature associated with the entitlement.'
+        type: string
+      -
+        name: featureExternalId
+        in: query
+        type: string
+        description: 'External ID of the feature.'
+      -
+        name: productId
+        in: query
+        description: 'Unique identifier of the product (also referred to as line item) associated with the entitlement. You can specify multiple values separated by comma. You must provide exact values for a successful search.'
+        type: string
+      -
+        name: productName
+        in: query
+        description: 'Name of the product associated with an entitlement (also referred to as line item).'
+        type: string
+      -
+        name: productVersion
+        in: query
+        description: 'Version of the product associated with an entitlement (also referred to as line item).'
+        type: string
+      -
+        name: productDescription
+        in: query
+        description: 'Description of the product associated with an entitlement (also referred to as line item).'
+        type: string
+      -
+        name: productSuiteName
+        in: query
+        description: 'Name of the suite associated with an entitlement (also referred to as line item).'
+        type: string
+      -
+        name: suiteExternalId
+        in: query
+        description: 'External ID of the product suite associated with the entitlement.'
+        type: string
+      -
+        name: productFamilyId
+        in: query
+        description: 'Unique identifier of the product family associated with the entitlement.'
+        type: string
+      -
+        name: productFamilyName
+        in: query
+        description: 'Name of the product family associated with the entitlement.'
+        type: string
+      -
+        name: productExternalId
+        in: query
+        description: 'External ID of the product.'
+        type: string
+      -
+        name: productIdentifier
+        in: query
+        description: 'Unique identifier of the product.'
+        type: string
+      -
+        name: isTest
+        in: query
+        description: 'Specify true to search for test entitlements. Specify false to search for normal entitlements.'
+        type: boolean
+      -
+        name: isAvailableQuantity
+        in: query
+        description: 'Remaining quantity available for activation in the entitlement.'
+        type: boolean
+      -
+        name: isOwnerAssigned
+        in: query
+        description: 'Whether a user is associated with the entitlement.'
+        type: boolean
+      -
+        name: excludeExpired
+        in: query
+        type: boolean
+        description: 'Whether to exclude expired entitlements.'
+      -
+        name: lmAttributeName
+        in: query
+        type: string
+        description: 'Name of the license model attribute. If this parameter is provided, it is mandatory to provide lmAttributeValue.'
+      -
+        name: lmAttributeValue
+        in: query
+        type: string
+        description: 'Value of the license model attribute. This parameter is required only when lmAttributeName is provided. Otherwise, it is ignored.'
+      -
+        name: batchJobId
+        in: query
+        type: string
+        description: 'ID of the batch entitlement. This ID is available from the Location response header of the Add Batch Entitlement (batchCommit) endpoint.'
+      -
+        in: query
+        name: raw
+        displayName: 'Custom Attributes'
+        type: string
+        description: "You can search on custom attributes of entitlement, line item, and user.\nFollowing is a sample URI: \n`GET /ems/api/v5/entitlements?CA_ENT.laptop=sony&CA_ENT.mobile=iphone&CA_LI.destitem=goa&CA_CONT.destination=tourismdest`\nFollowing is a sample value that can be provided here to form that URI: \n`CA_ENT.laptop=sony&CA_ENT.mobile=iphone&CA_LI.destitem=goa&CA_CONT.destination=tourismdest`\n\nAs shown in the above URI, you can use the following prefixes to perform searches using custom attributes:\n- CA_ENT: Perform search on an entitlement-level custom attribute.\n- CA_LI:  Perform search on an entitlement-line item relationship level custom attribute.\n- CA_CONT: Perform search on a contact-level custom attribute.\n\nThe rules to be followed when using custom attributes to search entitlements are:\n- All prefixes are case-sensitive.\n- To provide multiple values, use **&** separator.\n- If the attribute value contains any special characters, you need to use the UTF-8 URL encoding for those characters. Let&#8217;s say, the custom attribute is **color** and its value is **Blue&Cyan\\\\** (containing **&** and __\\\\__ special characters), then the search string is **CA_ENT.Color=Blue%26Cyan%5C.**\n"
+      -
+        $ref: '../parameters/parameter.yaml#/pageStartIndex'
+      -
+        $ref: '../parameters/parameter.yaml#/pageSize'
+      -
+        $ref: '../parameters/parameter.yaml#/searchPattern'
+      -
+        name: sortByAsc
+        in: query
+        description: 'Field name to sort results in ascending order.'
+        type: string
+        enum:
+          - startDate
+          - endDate
+          - marketGroupName
+          - contactEmailId
+          - customerName
+          - customerIdentifier
+          - customerExternalId
+          - status
+          - refId1
+          - refId2
+          - eId
+          - externalId
+          - userRegistration
+          - activationAllowed
+          - revocationAllowed
+          - sendNotification
+          - EntitlementAsWhole
+          - createdBy
+          - creationDate
+          - lastModifiedBy
+          - lastModifiedDate
+      -
+        name: sortByDesc
+        in: query
+        description: 'Field name to sort results in descending order.'
+        type: string
+        enum:
+          - startDate
+          - endDate
+          - marketGroupName
+          - contactEmailId          
+          - customerName
+          - customerIdentifier
+          - customerExternalId
+          - status
+          - refId1
+          - refId2
+          - eId
+          - externalId
+          - userRegistration
+          - activationAllowed
+          - revocationAllowed
+          - sendNotification
+          - EntitlementAsWhole
+          - createdBy
+          - creationDate
+          - lastModifiedBy
+          - lastModifiedDate
+      -
+        name: embed
+        in: query
+        description: "A comma-separated list of fields to return. You can reference parameters of nested objects with dot notation. \n\nFields available are: customer, contact, entitlementPartners, entitlementAttributes, entitlementFingerprints, productKey.productKeyFingerprints, productKey.productVariantFingerprints, productKeys, productKey.item, productKey.commonLicenseAttributes, productKey.namedUsers, productKey.customAttributes, productKey.activationAttributes and customAttributes.\n\nNote: \n- Use entitlementFingerprints if entitlementAsWhole is true for an entitlement. \n- Use productKey.productKeyFingerprints if entitlementAsWhole is false for an entitlement and the productType is DEFAULT. \n- Use productKey.productVariantFingerprints if entitlementAsWhole is false and the productType is PARENT or CHILD. \n- The search retrieves records only for the cases where FINGERPRINT_REGISTRATION is true."
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlements'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlements'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'entitlements_entitlementId':
+  get:
+    tags:
+      - Entitlement
+    summary: 'Get Entitlement'
+    description: 'Retrieve a specific entitlement based on its unique identifier.'
+    operationId: getEntitlement
+    displayName: 'Get Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  put:
+    useCases:
+      - "**Retrieve the eId  to be used for updating an entitlement**\n- Use the Get Entitlement API to retrieve the entitlement details. The response contains eId, which can be used in PUT and PATCH calls.\n"
+      - "**Add a new product to the entitlement**\n- Retrieve entitlement details (by ID)\n- Provide the product object containing product details (entitlement > productKeys > productKey > item> itemProduct > product).\n"
+      - "**Include or exclude a feature (from the existing feature list of a product) while updating an entitlement.**\n-  Use the itemFeatureState property to include or exclude a feature (Entitlement > productKeys > productKey > item > itemProducts > itemProductFeatures > itemProductFeature > itemFeatureState).\n"
+      - "**Change/switch feature of an existing product**\n-  Update the itemFeatureState property (Entitlement > productKeys > productKey > item > itemProducts > itemProductFeatures > itemProductFeature > itemFeatureState).\n"
+      - "**Change license of an existing product in an entitlement**\n-  Update the license model ID (itemFeatureLicenseModel > licenseModel > id).\n"
+      - "**Change fixed quantity when  the activation method is Fixed**\n-  Update the fixedQuantity property (entitlement > productKeys > productKey).\n"
+      - "**Remove a product from an entitlement**\n-  If the entitlement is in the DRAFT state, remove the corresponding productKey object (Entitlement > productKeys > productKey).\n-  If the entitlement is in the ENABLE (Completed) state, set the state property of the productKey object to DISABLE.\n"
+      - "**Add a user to an entitlement when customer already exists**\n-  Provide user ID and email address in the properties, id and emailId, respectively, within the user object to specify the customer to which the user belongs.\n"
+      - "**Update email addresses to send entitlement certificate to several recipients**\n-  Update email addresses (separated by semicolons) of up to 15 recipients in the property, ccEmail. \n   Note: This field is applicable only if the CC Email Change Allowed option is selected in the Administration Console.\n"
+      - "**Create an entitlement to obtain the full-duration license instead of obtaining lease period in slices**\n- In the entitlement > Lease Duration (hours) > Apply Full Duration, set the duration attribute as 438000.\n"
+      - "**Create an entitlement to renew the lease only when there is an update in the license terms**\n- In the entitlement > Lease Renewal Frequency (hours) > Do Not Renew Automatically (Exception: Entitlement Updates), set the renew_frequency attribute as 2147483647.\n"
+      - "**Restrict the activation of an entitlement to the vendor only**\n- In the entitlement object, set the allowActivationBy property to VENDOR_ONLY. \n  Note: The allowActivationBy property is applicable only when the activationAllowed property is set to true.\n"
+      - "**Allow all users (vendors, customers, and channel partners) to activate an entitlement**\n- In the entitlement object, set the allowActivationBy property to ALL_USERS explicitly, or do not include this property in the request because it automatically defaults to ALL_USERS. \n  Note: The allowActivationBy property is applicable only when the activationAllowed property is set to true.\n"
+    tags:
+      - Entitlement
+    summary: 'Replace Entitlement'
+    description: "Completely replaces the entitlements that are in the DRAFT state.\n  -  If a parameter is not provided, the existing value will be replaced by blank or default.\n  -  If a parameter is set to blank, the existing value will be replaced with blank.\n  -  If a parameter is set to a valid value, the existing value will be replaced by the given value.\n\n**Note**: Do not use this endpoint to perform partial update to the entitlement, such as changing the entitlement state. Use the PATCH method instead.\n"
+    operationId: updateEntitlement
+    displayName: 'Replace Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description: "Entitlement details to be updated.\nNote: \n - (For Sentinel RMS, Sentinel Fit, and Services) If the &#39;Copy License Date from Entitlement Line Item&#39; property is set to ‘Yes’ (Administration Console > Entitlement Configuration), do not provide the START_DATE and END_DATE attributes for the license model in the input. This ensures the start and end dates are copied from the entitlement line item to the license model. If you specify these attributes in the input, you must keep the dates the same as in the entitlement line item. \n - (For Sentinel LDK’s ‘Expiration Date' license model) If the &#39;Copy Dates from Entitlement Line Item&#39; option is set to ‘Yes’ during license model configuration, do not provide the START_DATE and END_DATE attributes in the input. This ensures the start and end dates are copied from the entitlement line item to the license model.\n - (For Sentinel RMS and Services) If the START_LICENSE_FROM_ACTIVATION_DATE attribute is true in the license model, the START_DATE and START_DATE values shown in the response of this endpoint are irrelevant."
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    useCases:
+      - "**Retrieve the eId  to be used for updating an entitlement**\n- Use the Get Entitlement API to retrieve the entitlement details. The response contains eId, which can be used in PUT and PATCH calls.\n"
+      - "**Add a new product to the entitlement**\n- Retrieve entitlement details (by ID)\n- Provide the product object containing product details (entitlement > productKeys > productKey > item> itemProduct > product).\n"
+      - "**Include or exclude a feature (from the existing feature list of a product) while updating an entitlement.**\n-  Use the itemFeatureState property to include or exclude a feature (Entitlement > productKeys > productKey > item > itemProducts > itemProductFeatures > itemProductFeature > itemFeatureState).\n"
+      - "**Change/switch feature of an existing product**\n-  Update the itemFeatureState property (Entitlement > productKeys > productKey > item > itemProducts > itemProductFeatures > itemProductFeature > itemFeatureState).\n"
+      - "**Change license of an existing product in an entitlement**\n-  Update the license model ID (itemFeatureLicenseModel > licenseModel > id).\n"
+      - "**Change fixed quantity when  the activation method is Fixed**\n-  Update the fixedQuantity property (entitlement > productKeys > productKey).\n"
+      - "**Disable a product in an entitlement**\n-  If the entitlement is in the ENABLE (Completed) state, set the state property of the productKey object to DISABLE. \n   Note: Use the PUT method (Replace Entitlement endpoint) to remove the product from a draft entitlement.\n"
+      - "**Add a user to an entitlement when customer already exists**\n-  Provide user ID and email address in the properties, id and emailId, respectively, within the user object to specify the customer to which the user belongs.\n"
+      - "**Update email addresses to send entitlement certificate to several recipients**\n-  Update email addresses of recipients by using the property, ccEmail. You can specify up to 15 email addresses, separated by semicolon.\n   Note: This field is applicable only if the CC Email Change Allowed option is selected in the Administration Console.\n"
+      - "**Create an entitlement to obtain the full-duration license instead of obtaining lease period in slices**\n- In the entitlement > Lease Duration (hours) > Apply Full Duration, set the duration attribute as 438000.\n"
+      - "**Create an entitlement to renew the lease only when there is an update in the license terms**\n- In the entitlement > Lease Renewal Frequency (hours) > Do Not Renew Automatically (Exception: Entitlement Updates), set the renew_frequency attribute as 2147483647.\n"  
+      - "**Restrict the activation of an entitlement to the vendor only**\n- In the entitlement object, set the allowActivationBy property to VENDOR_ONLY. \n  Note: The allowActivationBy property is applicable only when the activationAllowed property is set to true.\n"
+      - "**Allow all users (vendors, customers, and channel partners) to activate an entitlement**\n- In the entitlement object, set the allowActivationBy property to ALL_USERS explicitly, or do not include this property in the request because it automatically defaults to ALL_USERS. \n  Note: The allowActivationBy property is applicable only when the activationAllowed property is set to true.\n"
+    tags:
+      - Entitlement
+    summary: 'Update Entitlement'
+    description: "Update an entitlement throughout its life cycle, regardless of the entitlement state. \nNote:\n  - Use this endpoint if partial update is required.\n  - To change the state of an entitlement or product key, use specific endpoints, such as **Enable Entitlement** or **Enable Product Key**, instead of the **Update Entitlement** endpoint.\n  - If you have provided the quantity (by setting the totalQuantity parameter) in the input, the result will be as follows:   \n    - If the entitlement is in the DRAFT state, the input quantity replaces the existing quantity. \n    - If the entitlement is in the ENABLE state, the input quantity is added/subtracted to/from the existing quantity. To increment the quantity, set totalQuantity to a positive integer, for example, 2. To decrement the quantity, set totalQuantity to a negative integer, for example, -2. If you do not want to change the quantity, remove the totalQuantity parameter from the input or provide its value as 0.\n  - To add, update, or delete named users in an entitlement, use the endpoints specific to named users instead of the **Update Entitlement** endpoint. To add named users, use the **Update Associated Named User** endpoint. To update the details of an associated named user, use the **Update Associated Named User** endpoint. To remove named users, use the **Remove Associated Named User** endpoint.\n  - For lease entitlements, you cannot update fingerprint registration and redundancy attributes after activation.\n"
+    operationId: partialUpdateEntitlement
+    displayName: 'Update Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        name: regenerateLicense
+        in: query
+        type: boolean
+        description: "Refresh the previously activated licenses. This is applicable for the activated entitlements. Default: false\n"
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description: "Entitlement details to be updated.\nNote: \n - (For Sentinel RMS, Sentinel Fit, and Services) If the &#39;Copy License Date from Entitlement Line Item&#39; property is set to ‘Yes’ (Administration Console > Entitlement Configuration), do not provide the START_DATE and END_DATE attributes for the license model in the input. This ensures the start and end dates are copied from the entitlement line item to the license model. If you specify these attributes in the input, you must keep the dates the same as in the entitlement line item. \n - (For Sentinel LDK’s ‘Expiration Date' license model) If the &#39;Copy Dates from Entitlement Line Item&#39; option is set to ‘Yes’ during license model configuration, do not provide the START_DATE and END_DATE attributes in the input. This ensures the start and end dates are copied from the entitlement line item to the license model.\n - (For Sentinel RMS and Services) If the START_LICENSE_FROM_ACTIVATION_DATE attribute is true in the license model, the START_DATE and END_DATE values shown in the response of this endpoint are irrelevant."
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Entitlement
+    summary: 'Delete Entitlement'
+    operationId: deleteEntitlement
+    description: 'Delete an existing entitlement if it is in the draft state, or if it is a test entitlement.'
+    displayName: 'Delete Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+'entitlements_enable':
+  post:
+    tags:
+      - Entitlement
+    operationId: enableEntitlement
+    displayName: 'Enable Entitlement'
+    description: "Change the state of an entitlement from DRAFT or DISABLE to ENABLE (Completed).\n \n <br>"
+    summary: 'Enable Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        in: header
+        name: content-type
+        type: string
+        enum:
+          - application/json
+        required: true
+    responses:
+      '200':
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+'entitlements_disable':
+  post:
+    tags:
+      - Entitlement
+    operationId: disableEntitlement
+    displayName: 'Disable Entitlement'
+    description: "Change the state of an entitlement from ENABLE (Completed) to DISABLE.\n \n <br>"
+    summary: 'Disable Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        in: header
+        name: content-type
+        type: string
+        enum:
+          - application/json
+        required: true
+    responses:
+      '200':
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+'entitlements_close':
+  post:
+    tags:
+      - Entitlement
+    operationId: closeEntitlement
+    displayName: 'Close Entitlement'
+    description: "Change the state of an entitlement from ENABLE (Completed) or DISABLE to CLOSED. A closed entitlement is permanently disabled and no action can be performed on it. \n \n <br>"
+    summary: 'Close Entitlement'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        in: header
+        name: content-type
+        type: string
+        enum:
+          - application/json
+        required: true
+    responses:
+      '200':
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+'entitlements_bulk':
+  post:
+    tags:
+      - Entitlement
+    summary: 'Bulk Entitlement Upload'
+    consumes:
+      - multipart/form-data
+    description: "Upload a large entitlement data set to EMS. The supported input formats are CSV and JSON. For JSON format type, refer to the JSON output of the Search Entitlements API. For CSV format type, refer to the Sentinel EMS User Guide.\n **Note**:\n - With this endpoint, a bulk upload request is submitted to the job queue. The queue is processed in the background and a notification is sent to the administrator after the job completion.\n - The bulk upload is an asynchronous job and takes time to complete, depending on the volume of the input data and requests in the job queue. \n - Only vendor users with administrator permissions can use this endpoint.\n"
+    operationId: dataUploadEntitlement
+    displayName: 'Bulk Entitlement Upload'
+    parameters:
+      -
+        $ref: '../parameters/parameter.yaml#/dataUploadName'
+      -
+        $ref: '../parameters/parameter.yaml#/dataUploadFile'
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    responses:
+      '202':
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/batchjobEntitlement'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/batchjobEntitlement'
+        description: "Accepted\nThe auto-generated unique identifier (id) of the new resource is returned in the response. Save this identifier to get the batch job in future.\n"
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+
+'entitlements_entitlementId_contact':
+  put:
+    tags:
+      - Entitlement
+    summary: 'Associate User'
+    description: 'Associate a new user with the entitlement or update the details of the users already associated.'
+    operationId: updateEntitlementContact
+    displayName: 'Associate User'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementContact'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementContact'
+        description: 'User details for the entitlement.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Entitlement
+    summary: 'Remove Associated User'
+    description: 'Remove association between an entitlement and a user.'
+    operationId: deleteContactEntitlement
+    displayName: 'Remove Associated User'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'entitlements_entitlementId_customer':
+  put:
+    tags:
+      - Entitlement
+    summary: 'Associate Customer'
+    description: 'Associate a new customer with the entitlement or update the details of the customer already associated.'
+    operationId: updateCustomerEntitlement
+    displayName: 'Associate Customer'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementCustomer'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementCustomer'
+        description: 'Customer details for the entitlement.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Entitlement
+    summary: 'Remove Associated Customer'
+    description: 'Remove association between an entitlement and a customer.'
+    operationId: deleteCustomerEntitlement
+    displayName: 'Remove Associated Customer'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'entitlements_entitlementId_entitlementPartners':
+  put:
+    tags:
+      - Entitlement
+    summary: 'Associate Partners'
+    description: 'Associate new channel partners to an entitlement or replace the existing partners. A maximum of five channel partners can be associated.'
+    operationId: updatePartnersEntitlement
+    displayName: 'Associate Partners'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementPartners'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementPartners'
+        description: 'Channel partner details for the entitlement.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    tags:
+      - Entitlement
+    summary: 'Update Associated Partners'
+    description: 'Associate a new channel partner to the entitlement in addition to the existing channel partners. A maximum of five channel partners can be associated.'
+    operationId: partialUpdateEntitlementPartners
+    displayName: 'Update Associated Partners'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementPartners'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlementPartners'
+        description: 'Channel partner details for the entitlement.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Entitlement
+    summary: 'Remove Associated Partner'
+    description: 'Remove association between an entitlement and a channel partner.'
+    operationId: deletePartnerEntitlement
+    displayName: 'Remove Associated Partner'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        name: id
+        in: query
+        description: 'Identifier of the channel partner to be removed from the entitlement.'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'entitlements_entitlementId_productKeys':
+  post:
+    tags:
+      - Entitlement
+    summary: 'Add Product Key'
+    description: 'Associate products to an enabled entitlement. Products associated with an entitlement are called line items. Each line item after activation is assigned a unique product key. <br/>  Note: Applicable only for custom/third-party enforcements. Not applicable for Sentinel enforcements.'
+    operationId: addLineitemToEntitlement
+    displayName: 'Add Product Key'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+        description: 'Product key details for the entitlement.'
+        required: true
+    responses:
+      '201':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+        description: "Product key added successfully\nThe auto-generated unique identifier (id) of the new resource is returned in the response.\n"
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'productKeys_pkId':
+  get:
+    tags:
+      - Entitlement
+    summary: 'Get Product Key'
+    description: 'Retrieve details of a specific product associated with an entitlement (also referred to as a line item).'
+    operationId: getLineItem
+    displayName: 'Get Product Key'
+    parameters:
+      -
+        name: productKeyId
+        in: path
+        description: 
+          $ref: '../descriptions/description.yaml#/snp_prdKey'
+        required: true
+        type: string
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    tags:
+      - Entitlement
+    summary: 'Update Product Key'
+    description: "Partially update details of a product associated with an entitlement (also referred to as a line item).\n \n <br> **Note**:\n  - You can set the totalQuantity parameter in the request body to increment or decrement the existing quantity. To increment the quantity, set totalQuantity to a positive integer, for example, 2. To decrement the quantity, set totalQuantity to a negative integer, for example, -2.\n  - To change the state of a product key, use specific endpoints, such as **Enable Product Key** or **Disable Product Key**, instead of the **Update Product Key** endpoint.\n"
+    operationId: partialUpdateEntitlementLineItem
+    displayName: 'Update Product Key'
+    parameters:
+      -
+        name: productKeyId
+        in: path
+        description: 
+          $ref: '../descriptions/description.yaml#/snp_prdKey'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        $ref: '../parameters/parameter.yaml#/returnResource'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+        description: 'Product key details for the entitlement.'
+        required: true
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/productKey'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+   
+'productKeys_pkId_close':        
+  post:
+    tags:
+      - Entitlement
+    summary: 'Close Product Key'
+    description: "Change the state of a product key from ENABLE (Completed) or DISABLE to CLOSED. A closed product key is permanently disabled and no action can be performed on it.\n \n <br>"
+    operationId: closeEntitlementLineItem
+    displayName: 'Close Product Key'
+    parameters:
+      -
+        name: productKeyId
+        in: path
+        description: 
+          $ref: '../descriptions/description.yaml#/snp_prdKey'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+      -
+        in: header
+        name: content-type
+        type: string
+        enum:
+          - application/json
+        required: true
+    responses:
+      '200':
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+
+'productKeys_pkId_disable':        
+  post:
+   tags:
+    - Entitlement
+   summary: 'Disable Product Key'
+   description: "Change the state of a product key from ENABLE (Completed) to DISABLE.\n \n  <br>"
+   operationId: disableEntitlementLineItem
+   displayName: 'Disable Product Key'
+   parameters:
+     -
+       name: productKeyId
+       in: path
+       description: 
+         $ref: '../descriptions/description.yaml#/snp_prdKey'
+       required: true
+       type: string
+     -
+        $ref: '../parameters/parameter.yaml#/comments'
+     -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+     -
+        in: header
+        name: content-type
+        type: string
+        enum:
+          - application/json
+        required: true
+   responses:
+     '200':
+       description:
+         $ref: '../responses/response.yaml#/200/description'
+     '204':
+       $ref: '../responses/response.yaml#/204'
+     '400':
+       $ref: '../responses/response.yaml#/400'
+     '401':
+       $ref: '../responses/response.yaml#/401'
+     '403':
+       $ref: '../responses/response.yaml#/403'
+     '404':
+       $ref: '../responses/response.yaml#/404'
+     '500':
+       $ref: '../responses/response.yaml#/500'
+     '503':
+       $ref: '../responses/response.yaml#/503'
+
+'productKeys_pkId_enable':        
+  post:
+   tags:
+    - Entitlement
+   summary: 'Enable Product Key'
+   description: "Change the state of a product key from DISABLE to ENABLE (Completed).\n \n <br>"
+   operationId: enableEntitlementLineItem
+   displayName: 'Enable Product Key'
+   parameters:
+     -
+       name: productKeyId
+       in: path
+       description: 
+         $ref: '../descriptions/description.yaml#/snp_prdKey'
+       required: true
+       type: string
+     -
+        $ref: '../parameters/parameter.yaml#/comments'
+     -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+     -
+        in: header
+        name: content-type
+        type: string
+        enum:
+          - application/json
+        required: true
+   responses:
+     '200':
+       description:
+         $ref: '../responses/response.yaml#/200/description'
+     '204':
+       $ref: '../responses/response.yaml#/204'
+     '400':
+       $ref: '../responses/response.yaml#/400'
+     '401':
+       $ref: '../responses/response.yaml#/401'
+     '403':
+       $ref: '../responses/response.yaml#/403'
+     '404':
+       $ref: '../responses/response.yaml#/404'
+     '500':
+       $ref: '../responses/response.yaml#/500'
+     '503':
+       $ref: '../responses/response.yaml#/503'
+
+'productKeys_pkId_namedUsers':
+  get:
+    tags:
+      - Entitlement
+    summary: 'Search Associated Named Users'
+    operationId: getNameUsers
+    displayName: 'Search Associated Named Users'
+    description: "Retrieve a list of named users associated with the product key of an entitlement.\nNote:\n  - Named users are associated with entitlements that are created with the Cloud Served - Connected deployment mode.\n  - Named user licensing is relevant only for Sentinel RMS connected mode.\n"
+    parameters:
+      -
+        name: pkId
+        in: path
+        description: 'Unique identifier of the product key.'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/pageStartIndex'
+      -
+        $ref: '../parameters/parameter.yaml#/pageSize'
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/namedUsers'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/namedUsers'
+        description:
+          $ref: '../responses/response.yaml#/200/description'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  put:
+    tags:
+      - Entitlement
+    summary: 'Associate Named User'
+    operationId: updateNameUsers
+    displayName: 'Associate Named User'
+    description: "Associate named users with the product key of an entitlement. Licenses can be used only by end users whose names are specified in the entitlement.\nNotes: \n  - Named users are associated with entitlements that are created with the Cloud Served - Connected deployment mode.\n  - The entitlement must be in the Enable state before associating named users. \n  - In the common licensing attributes of an entitlement, the NAMED_USER_LICENSE flag should be set to true to enable the named user association. Also, the maximum number of users allowed is specified using the NO_OF_NAMEDUSERS attribute.\n  - Named user licensing is relevant only for Sentinel RMS connected mode.\n"
+    parameters:
+      -
+        name: pkId
+        in: path
+        description: 'Unique identifier of the product key to which the named user is to be associated.'
+        required: true
+        type: string
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/namedUsers'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/namedUsers'
+        description: 'Details of named users that are to be associated.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  patch:
+    tags:
+      - Entitlement
+    summary: 'Update Associated Named User'
+    operationId: partiallyUpdateNameUsers
+    displayName: 'Update Associated Named User'
+    description: "Update the details of named users associated with an entitlement. \nNotes:\n  - Named users are associated with entitlements that are created with the Cloud Served - Connected deployment mode.\n  - The entitlement must be in the Enable state before associating named users. \n  - In the common licensing attributes of an entitlement, the NAMED_USER_LICENSE flag should be set to true to enable the named user association. Also, the maximum number of users allowed is specified using the NO_OF_NAMEDUSERS attribute. \n  - Named user licensing is relevant only for Sentinel RMS connected mode.\n"
+    parameters:
+      -
+        name: pkId
+        in: path
+        description: 'Unique identifier of the product key.'
+        required: true
+        type: string
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/namedUsers'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/namedUsers'
+        description: 'Details of named users that are to be updated.'
+        required: true
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+  delete:
+    tags:
+      - Entitlement
+    summary: 'Remove Associated Named User'
+    operationId: deleteNameUser
+    displayName: 'Remove Associated Named User'
+    description: "Remove association between a product key and a named user.\nNote:\n  -  Named users are associated with entitlements that are created with the Cloud Served - Connected deployment mode.\n  - Named user licensing is relevant only for Sentinel RMS connected mode.\n"
+    parameters:
+      -
+        name: pkId
+        in: path
+        description: 'Unique identifier of the product key.'
+        required: true
+        type: string
+      -
+        name: name
+        in: query
+        description: 'Name of the named user.'
+        required: true
+        type: string
+    responses:
+      '204':
+        $ref: '../responses/response.yaml#/204'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'
+        
+'entitlements_entitlementId_splitTransfer':
+  post:
+    tags:
+      - Entitlement
+    summary: 'Split or Transfer'
+    description: 'Split and/or transfer the existing quantity in an entitlement to another party (customer, user, or channel partner).'
+    operationId: SplitOrTransferAnEntitlement
+    displayName: 'Split or Transfer'
+    parameters:
+      -
+        name: entitlementId
+        in: path
+        description:
+          $ref: '../descriptions/description.yaml#/snp_ent'
+        required: true
+        type: string
+      -
+        $ref: '../parameters/parameter.yaml#/comments'
+      -
+        $ref: '../parameters/parameter.yaml#/executedBy'
+    requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/splitTransfer'
+          'application/xml':
+            schema:
+              $ref: '../definitions/entitlement.yaml#/splitTransfer'
+        description: 'Details of entitlement on which the split or transfer operation is to be performed.'
+        required: true
+    responses:
+      '201':
+        content:
+          application/json:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+          application/xml:
+            schema:
+              $ref: '../definitions/entitlement.yaml#/entitlement'
+        description: 'Operation successful'
+      '400':
+        $ref: '../responses/response.yaml#/400'
+      '401':
+        $ref: '../responses/response.yaml#/401'
+      '403':
+        $ref: '../responses/response.yaml#/403'
+      '404':
+        $ref: '../responses/response.yaml#/404'
+      '500':
+        $ref: '../responses/response.yaml#/500'
+      '503':
+        $ref: '../responses/response.yaml#/503'

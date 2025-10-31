@@ -207,8 +207,11 @@ function Initialize-Parameters {
         $script:MigrationMode = $Mode
     }
 
-    # Create Basic Auth header
-    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $script:Username, $script:Password)))
+    # Create Basic Auth header using UTF8 encoding (verified working pattern)
+    $credentials = "$($script:Username):$($script:Password)"
+    $credentialsBytes = [System.Text.Encoding]::UTF8.GetBytes($credentials)
+    $base64AuthInfo = [System.Convert]::ToBase64String($credentialsBytes)
+
     $script:ApiHeaders = @{
         "Authorization" = "Basic $base64AuthInfo"
         "Content-Type"  = "application/json"
@@ -226,13 +229,23 @@ function Write-Log {
         Writes messages to both console and log file
     #>
     param(
-        [Parameter(Mandatory = $true)]
-        [string]$Message,
+        [Parameter(Mandatory = $false)]
+        [AllowEmptyString()]
+        [string]$Message = "",
 
         [Parameter(Mandatory = $false)]
         [ValidateSet('Info', 'Warning', 'Error', 'Success')]
         [string]$Level = 'Info'
     )
+
+    # Handle empty messages (for blank lines)
+    if ([string]::IsNullOrEmpty($Message)) {
+        # Write blank line to log file
+        Add-Content -Path $LogFile -Value ""
+        # Write blank line to console
+        Write-Host ""
+        return
+    }
 
     $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
     $logMessage = "[$timestamp] [$Level] $Message"
@@ -293,13 +306,80 @@ function Invoke-EmsApiRequest {
     }
 }
 
+function Get-EmsCustomer {
+    <#
+    .SYNOPSIS
+        Retrieves customer details from Sentinel EMS
+    .DESCRIPTION
+        Calls the Search Customers REST API endpoint (GET /ems/api/v5/customers)
+        with the customer ID as a query parameter.
+
+        Response format (verified from API):
+        {
+            "customers": {
+                "count": N,
+                "customer": [ ... ]
+            }
+        }
+    .REFERENCE
+        .claude/skills/ems-api/skill.md - Section 4. Search Customers
+    #>
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$CustomerId
+    )
+
+    Write-Log "Fetching customer details for: $CustomerId" -Level Info
+
+    try {
+        # Construct endpoint URL per ems-api skill documentation
+        $endpoint = "/ems/api/v5/customers?id=$CustomerId"
+        $response = Invoke-EmsApiRequest -Endpoint $endpoint -Method GET
+
+        if ($response -and $response.customers -and $response.customers.customer) {
+            $customer = if ($response.customers.customer -is [array]) {
+                $response.customers.customer[0]
+            } else {
+                $response.customers.customer
+            }
+
+            Write-Log "Customer found: $($customer.name) (ID: $($customer.id))" -Level Success
+            Write-Log "  State: $($customer.state), Market Group: $($customer.marketGroup.name)" -Level Info
+
+            return $customer
+        }
+        else {
+            Write-Log "Customer not found: $CustomerId" -Level Warning
+            return $null
+        }
+    }
+    catch {
+        Write-Log "Failed to retrieve customer: $($_.Exception.Message)" -Level Error
+        if ($_.Exception.Response) {
+            $statusCode = [int]$_.Exception.Response.StatusCode
+            Write-Log "HTTP Status Code: $statusCode" -Level Error
+        }
+        return $null
+    }
+}
+
 function Get-EmsEntitlements {
     <#
     .SYNOPSIS
         Retrieves entitlements for a specific customer from Sentinel EMS
     .DESCRIPTION
         Calls the Search Entitlements REST API endpoint (GET /ems/api/v5/entitlements)
-        with the customerId as a query parameter
+        with the customerId as a query parameter.
+
+        Response format (verified from API):
+        {
+            "entitlements": {
+                "count": N,
+                "entitlement": [ ... ]
+            }
+        }
+    .REFERENCE
+        .claude/skills/ems-api/skill.md - Section 1. Search Entitlements
     #>
     param(
         [Parameter(Mandatory = $true)]
@@ -309,37 +389,54 @@ function Get-EmsEntitlements {
     Write-Log "Fetching entitlements for customer: $CustomerId" -Level Info
 
     try {
+        # Construct endpoint URL per ems-api skill documentation
         $endpoint = "/ems/api/v5/entitlements?customerId=$CustomerId"
-        $entitlements = Invoke-EmsApiRequest -Endpoint $endpoint -Method GET
+        $response = Invoke-EmsApiRequest -Endpoint $endpoint -Method GET
 
-        if ($entitlements) {
-            $count = 0
-            if ($entitlements -is [array]) {
-                $count = $entitlements.Count
-            }
-            elseif ($entitlements.items) {
-                $count = $entitlements.items.Count
-            }
-            elseif ($entitlements.entitlements) {
-                $count = $entitlements.entitlements.Count
+        if ($response -and $response.entitlements) {
+            # Extract count from response structure
+            $count = if ($response.entitlements.count) { $response.entitlements.count } else { 0 }
+
+            if ($count -gt 0) {
+                Write-Log "Retrieved $count entitlement(s)" -Level Success
+
+                # Log summary of entitlements found
+                if ($response.entitlements.entitlement) {
+                    $entitlements = if ($response.entitlements.entitlement -is [array]) {
+                        $response.entitlements.entitlement
+                    } else {
+                        @($response.entitlements.entitlement)
+                    }
+
+                    foreach ($ent in $entitlements) {
+                        Write-Log "  - Entitlement ID: $($ent.id), EID: $($ent.eId), State: $($ent.state)" -Level Info
+                    }
+                }
             }
             else {
-                $count = 1
+                Write-Log "No entitlements found for customer: $CustomerId" -Level Warning
             }
-
-            Write-Log "Retrieved $count entitlement(s)" -Level Success
         }
         else {
             Write-Log "No entitlements found for customer: $CustomerId" -Level Warning
         }
 
-        return $entitlements
+        return $response
     }
     catch {
         Write-Log "Failed to retrieve entitlements: $($_.Exception.Message)" -Level Error
         if ($_.Exception.Response) {
-            $statusCode = $_.Exception.Response.StatusCode.value__
+            $statusCode = [int]$_.Exception.Response.StatusCode
             Write-Log "HTTP Status Code: $statusCode" -Level Error
+
+            # Provide helpful error messages per ems-api skill documentation
+            switch ($statusCode) {
+                400 { Write-Log "Bad Request: Invalid request parameters" -Level Error }
+                401 { Write-Log "Unauthorized: Authentication failed" -Level Error }
+                403 { Write-Log "Forbidden: Insufficient permissions" -Level Error }
+                404 { Write-Log "Not Found: Resource not found" -Level Error }
+                500 { Write-Log "Internal Server Error: Server error" -Level Error }
+            }
         }
         return $null
     }
@@ -356,34 +453,66 @@ function Initialize-Migration {
     #>
 
     Write-Log "=== RMS-CC to LDK-CL Migration Tool ===" -Level Info
+    Write-Log "Version     : 2.0.0" -Level Info
     Write-Log "EMS URL     : $($script:EmsUrl)" -Level Info
     Write-Log "Username    : $($script:Username)" -Level Info
     Write-Log "Batch Code  : $($script:BatchCode)" -Level Info
     Write-Log "Customer ID : $($script:CustomerId)" -Level Info
     Write-Log "Mode        : $($script:MigrationMode)" -Level Info
+    Write-Log "" -Level Info
 
-    # Test API connectivity
+    # Test API connectivity (optional - endpoint may not exist in all EMS versions)
     Write-Log "Testing EMS connectivity..." -Level Info
 
     try {
         $testEndpoint = "/api/health"
         Invoke-EmsApiRequest -Endpoint $testEndpoint -Method GET
-        Write-Log "EMS connection successful" -Level Success
+        Write-Log "EMS health check successful" -Level Success
     }
     catch {
-        Write-Log "Failed to connect to EMS: $($_.Exception.Message)" -Level Error
-        Write-Log "Note: If /api/health endpoint doesn't exist, this is not critical" -Level Warning
+        Write-Log "Health check endpoint not available (this is normal for some EMS versions)" -Level Warning
         # Continue execution - the health endpoint may not exist in all EMS versions
     }
 
+    # Validate customer exists
+    Write-Log "" -Level Info
+    Write-Log "Step 1: Validating customer..." -Level Info
+    $customer = Get-EmsCustomer -CustomerId $script:CustomerId
+
+    if ($null -eq $customer) {
+        Write-Log "Customer validation failed. Cannot proceed." -Level Error
+        return $false
+    }
+
+    if ($customer.state -ne "ENABLE") {
+        Write-Log "Warning: Customer state is '$($customer.state)' (not ENABLE)" -Level Warning
+    }
+
     # Retrieve entitlements for the customer
-    Write-Log "Retrieving entitlements for customer: $($script:CustomerId)" -Level Info
+    Write-Log "" -Level Info
+    Write-Log "Step 2: Retrieving entitlements..." -Level Info
     $script:Entitlements = Get-EmsEntitlements -CustomerId $script:CustomerId
 
     if ($null -eq $script:Entitlements) {
         Write-Log "Failed to retrieve entitlements. Cannot proceed." -Level Error
         return $false
     }
+
+    # Check if any entitlements were found
+    $entitlementCount = if ($script:Entitlements.entitlements.count) {
+        $script:Entitlements.entitlements.count
+    } else {
+        0
+    }
+
+    if ($entitlementCount -eq 0) {
+        Write-Log "No entitlements found for customer. Nothing to migrate." -Level Warning
+        return $false
+    }
+
+    Write-Log "" -Level Info
+    Write-Log "Initialization complete - Ready to proceed with migration" -Level Success
+    Write-Log "" -Level Info
 
     return $true
 }

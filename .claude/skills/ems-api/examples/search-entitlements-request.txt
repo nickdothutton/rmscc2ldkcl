@@ -1,0 +1,13 @@
+URL:
+{YOUR_URL}/ems/api/v5/entitlements?id={id}&eId={eId}&productKey={productKey}&itemExternalId={itemExternalId}&externalId={externalId}&refId1={refId1}&refId2={refId2}&state={state}&createdBy={createdBy}&creationDateFrom={creationDateFrom}&creationDateTo={creationDateTo}&startDateFrom={startDateFrom}&startDateTo={startDateTo}&endDateFrom={endDateFrom}&endDateTo={endDateTo}&modifiedDateFrom={modifiedDateFrom}&modifiedDateTo={modifiedDateTo}&lastModifiedBy={lastModifiedBy}&fingerprintFriendlyName={fingerprintFriendlyName}&contactName={contactName}&contactEmailId={contactEmailId}&contactExternalId={contactExternalId}&customerId={customerId}&customerName={customerName}&customerIdentifier={customerIdentifier}&marketGroupId={marketGroupId}&marketGroupName={marketGroupName}&partnerName={partnerName}&partnerIdentifier={partnerIdentifier}&partnerExternalId={partnerExternalId}&featureId={featureId}&featureName={featureName}&featureExternalId={featureExternalId}&productId={productId}&productName={productName}&productVersion={productVersion}&productDescription={productDescription}&productSuiteName={productSuiteName}&suiteExternalId={suiteExternalId}&productFamilyId={productFamilyId}&productFamilyName={productFamilyName}&productExternalId={productExternalId}&productIdentifier={productIdentifier}&isTest={isTest}&isAvailableQuantity={isAvailableQuantity}&isOwnerAssigned={isOwnerAssigned}&excludeExpired={excludeExpired}&lmAttributeName={lmAttributeName}&lmAttributeValue={lmAttributeValue}&batchJobId={batchJobId}&raw={raw}&pageStartIndex={pageStartIndex}&pageSize={pageSize}&searchPattern={searchPattern}&sortByAsc={sortByAsc}&sortByDesc={sortByDesc}&embed={embed}
+
+METHOD:
+GET
+
+AUTHORIZATION:
+Basic Auth
+#credentials = Encode {YOUR_USERNAME}:{YOUR_PASSWORD} to base64
+
+HEADERS:
+Authorization = Basic {credentials}
+Accept = application/json

@@ -1,0 +1,13 @@
+URL:
+{YOUR_URL}/ems/api/v5/products?id={id}&namespaceId={namespaceId}&namespaceName={namespaceName}&name={name}&version={version}&identifier={identifier}&externalId={externalId}&productType={productType}&variantLessProducts={variantLessProducts}&refId1={refId1}&refId2={refId2}&isProvisioning={isProvisioning}&isAutoActivation={isAutoActivation}&licenseModelId={licenseModelId}&licenseModelName={licenseModelName}&featureId={featureId}&featureName={featureName}&state={state}&family={family}&pageStartIndex={pageStartIndex}&pageSize={pageSize}&searchPattern={searchPattern}&sortByAsc={sortByAsc}&sortByDesc={sortByDesc}&createdBy={createdBy}&creationDateFrom={creationDateFrom}&creationDateTo={creationDateTo}&lastModifiedBy={lastModifiedBy}&raw={raw}&embed={embed}&embedExtnLDK={embedExtnLDK}
+
+METHOD:
+GET
+
+AUTHORIZATION:
+Basic Auth
+#credentials = Encode {YOUR_USERNAME}:{YOUR_PASSWORD} to base64
+
+HEADERS:
+Authorization = Basic {credentials}
+Accept = application/json
